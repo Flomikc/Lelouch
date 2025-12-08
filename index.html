@@ -215,11 +215,11 @@
             box-shadow: none !important;
         }
 
-        /* ВСТАВЬТЕ СТИЛИ ДЛЯ OVERLAY-ИЗОБРАЖЕНИЯ ЗДЕСЬ */
+        /* =================== СТИЛИ ДЛЯ OVERLAY-ИЗОБРАЖЕНИЯ =================== */
         .overlay-image-container {
             position: absolute;
             width: 100%;
-            top: 804px; /* Фиксированная позиция по Y */
+            top: 812px; /* Фиксированная позиция по Y */
             left: 0;
             z-index: 10; /* Значение выше, чем у info-block (2) и anchor (1) */
             pointer-events: none; /* Чтобы не мешало кликам */
@@ -232,7 +232,209 @@
             max-width: 1920px; /* Ограничиваем максимальную ширину как у .page */
             margin: 0 auto; /* Центрируем */
         }
-        /* КОНЕЦ ВСТАВКИ СТИЛЕЙ */
+        /* =================== КОНЕЦ OVERLAY-ИЗОБРАЖЕНИЯ =================== */
+
+        /* =================== ИНТЕРАКТИВНАЯ ГАЛЕРЕЯ =================== */
+        .interactive-gallery {
+            position: absolute;
+            width: 100%;
+            top: 1360px; /* Позиция по Y */
+            left: 0;
+            z-index: 15; /* Выше чем overlay (10) */
+            pointer-events: none; /* Позволяет клики через этот слой */
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 1023px; /* Размер Giasphoto.png */
+            height: 613px;
+            margin: 0 auto; /* Центрирование по горизонтали */
+            pointer-events: auto; /* Возвращаем клики для контейнера */
+        }
+
+        .central-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+        }
+
+        .gias-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            /* Убрана тень и анимация пульсации */
+        }
+
+        /* Текстовый блок поверх изображения */
+        .text-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 25;
+        }
+
+        .text-content h3 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-shadow: none;
+        }
+
+        .text-content p {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.5;
+            text-shadow: none;
+        }
+
+        /* Блок с кнопками */
+        .buttons-overlay {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 25;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .learn-more-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            min-width: 200px;
+        }
+
+        .learn-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Скрытые фотографии */
+        .hidden-photo {
+            position: absolute;
+            width: 341px;
+            height: 341px;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 10;
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            pointer-events: auto;
+            /* Центрируем для вылета из центра */
+            left: 50%;
+            top: 50%;
+            margin-left: -170px; /* половина ширины */
+            margin-top: -170px; /* половина высоты */
+        }
+
+        .hidden-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            /* Убрана белая рамка */
+        }
+
+        /* Позиции для разъезжания фотографий (в 1.5 раза дальше) */
+        .gallery-container.photos-active #photo1 {
+            transform: translate(-600px, -300px) rotate(-15deg) scale(1); /* Увеличен в 1.5 раза */
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0.1s;
+        }
+
+        .gallery-container.photos-active #photo2 {
+            transform: translate(0, -450px) rotate(5deg) scale(1); /* Увеличен в 1.5 раза */
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0.2s;
+        }
+
+        .gallery-container.photos-active #photo3 {
+            transform: translate(600px, -300px) rotate(15deg) scale(1); /* Увеличен в 1.5 раза */
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0.3s;
+        }
+
+        .gallery-container.photos-active #photo4 {
+            transform: translate(-450px, 300px) rotate(-10deg) scale(1); /* Увеличен в 1.5 раза */
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0.4s;
+        }
+
+        .gallery-container.photos-active #photo5 {
+            transform: translate(450px, 300px) rotate(10deg) scale(1); /* Увеличен в 1.5 раза */
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0.5s;
+        }
+
+        /* Анимация появления кнопок навигации */
+        .nav-buttons {
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Эффект при наведении на фотографии */
+        .hidden-photo:hover {
+            transform: scale(1.1) !important;
+            z-index: 30 !important;
+            transition: transform 0.3s ease !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
 
         h2 {
             margin-bottom: 15px;
@@ -821,7 +1023,7 @@
             }
         }
 
-        /* ВСТАВЬТЕ АДАПТИВНОСТЬ ДЛЯ OVERLAY-ИЗОБРАЖЕНИЯ ЗДЕСЬ */
+        /* =================== АДАПТИВНОСТЬ ДЛЯ OVERLAY-ИЗОБРАЖЕНИЯ =================== */
         @media (max-width: 1920px) {
             .overlay-image {
                 width: 100%;
@@ -839,7 +1041,170 @@
                 opacity: 0.8; /* Можно сделать полупрозрачным для мобильных */
             }
         }
-        /* КОНЕЦ АДАПТИВНОСТИ */
+
+        /* =================== АДАПТИВНОСТЬ ДЛЯ ГАЛЕРЕИ =================== */
+        @media (max-width: 1200px) {
+            .gallery-container {
+                width: 800px;
+                height: 480px;
+            }
+            
+            .hidden-photo {
+                width: 250px;
+                height: 250px;
+                margin-left: -125px;
+                margin-top: -125px;
+            }
+            
+            .text-overlay {
+                padding: 20px;
+            }
+            
+            .text-content h3 {
+                font-size: 22px;
+            }
+            
+            .text-content p {
+                font-size: 16px;
+            }
+            
+            .learn-more-btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+            
+            .nav-btn {
+                padding: 10px 25px;
+                font-size: 15px;
+            }
+            
+            /* Уменьшаем разлет для средних экранов */
+            .gallery-container.photos-active #photo1 {
+                transform: translate(-450px, -225px) rotate(-15deg);
+            }
+            
+            .gallery-container.photos-active #photo2 {
+                transform: translate(0, -337px) rotate(5deg);
+            }
+            
+            .gallery-container.photos-active #photo3 {
+                transform: translate(450px, -225px) rotate(15deg);
+            }
+            
+            .gallery-container.photos-active #photo4 {
+                transform: translate(-337px, 225px) rotate(-10deg);
+            }
+            
+            .gallery-container.photos-active #photo5 {
+                transform: translate(337px, 225px) rotate(10deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .interactive-gallery {
+                top: 800px;
+                z-index: 12;
+            }
+            
+            .gallery-container {
+                width: 90%;
+                max-width: 500px;
+                height: 300px;
+            }
+            
+            .hidden-photo {
+                width: 120px;
+                height: 120px;
+                margin-left: -60px;
+                margin-top: -60px;
+            }
+            
+            .text-overlay {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                padding: 15px;
+            }
+            
+            .text-content h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+            
+            .text-content p {
+                font-size: 14px;
+            }
+            
+            .buttons-overlay {
+                bottom: 20px;
+            }
+            
+            .learn-more-btn {
+                padding: 10px 25px;
+                font-size: 14px;
+                min-width: 160px;
+            }
+            
+            .nav-buttons {
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                padding: 8px 20px;
+                font-size: 14px;
+                min-width: 100px;
+            }
+            
+            /* Уменьшаем разлет для мобильных */
+            .gallery-container.photos-active #photo1 {
+                transform: translate(-180px, -90px) rotate(-10deg);
+            }
+            
+            .gallery-container.photos-active #photo2 {
+                transform: translate(0, -135px) rotate(5deg);
+            }
+            
+            .gallery-container.photos-active #photo3 {
+                transform: translate(180px, -90px) rotate(10deg);
+            }
+            
+            .gallery-container.photos-active #photo4 {
+                transform: translate(-135px, 90px) rotate(-8deg);
+            }
+            
+            .gallery-container.photos-active #photo5 {
+                transform: translate(135px, 90px) rotate(8deg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hidden-photo {
+                width: 100px;
+                height: 100px;
+                margin-left: -50px;
+                margin-top: -50px;
+            }
+            
+            .gallery-container.photos-active #photo1 {
+                transform: translate(-150px, -75px) rotate(-8deg);
+            }
+            
+            .gallery-container.photos-active #photo2 {
+                transform: translate(0, -112px) rotate(5deg);
+            }
+            
+            .gallery-container.photos-active #photo3 {
+                transform: translate(150px, -75px) rotate(8deg);
+            }
+            
+            .gallery-container.photos-active #photo4 {
+                transform: translate(-112px, 75px) rotate(-6deg);
+            }
+            
+            .gallery-container.photos-active #photo5 {
+                transform: translate(112px, 75px) rotate(6deg);
+            }
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateX(-50%) translateY(20px); }
@@ -882,6 +1247,67 @@
             <img src="outside.png" alt="Якорь" width="1189" height="1189" />
         </div>
 
+        <!-- Overlay изображение -->
+        <div class="overlay-image-container">
+            <img src="fon2.png" alt="Наложение" class="overlay-image">
+        </div>
+
+        <!-- Интерактивная галерея -->
+        <div class="interactive-gallery">
+            <div class="gallery-container">
+                <!-- Центральное изображение -->
+                <div class="central-image">
+                    <img src="Giasphoto.png" alt="Главное фото" class="gias-photo">
+                    
+                    <!-- Текстовый блок поверх изображения -->
+                    <div class="text-overlay">
+                        <div class="text-content" id="text1">
+                            <h3>Текст 1: Начало путешествия</h3>
+                            <p>Откройте для себя удивительный мир фотографии. Первые шаги в профессиональной съемке всегда волнительны.</p>
+                        </div>
+                        <div class="text-content" id="text2" style="display: none;">
+                            <h3>Текст 2: Техника и оборудование</h3>
+                            <p>Использование современной техники позволяет достичь невероятных результатов. Каждый снимок - искусство.</p>
+                        </div>
+                        <div class="text-content" id="text3" style="display: none;">
+                            <h3>Текст 3: Работа со светом</h3>
+                            <p>Свет - главный инструмент фотографа. Научитесь управлять им, и ваши фотографии заиграют новыми красками.</p>
+                        </div>
+                        <div class="text-content" id="text4" style="display: none;">
+                            <h3>Текст 4: Композиция и кадрирование</h3>
+                            <p>Правильная композиция превращает обычный снимок в шедевр. Узнайте секреты профессионального кадрирования.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Кнопки -->
+                    <div class="buttons-overlay">
+                        <button class="learn-more-btn" id="learnMoreBtn">Узнать больше</button>
+                        <div class="nav-buttons" style="display: none;">
+                            <button class="nav-btn prev-text-btn">Назад</button>
+                            <button class="nav-btn next-text-btn">Далее</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Скрытые изображения (фотографии) -->
+                <div class="hidden-photo" id="photo1">
+                    <img src="photo.png" alt="Фото 1">
+                </div>
+                <div class="hidden-photo" id="photo2">
+                    <img src="photo.png" alt="Фото 2">
+                </div>
+                <div class="hidden-photo" id="photo3">
+                    <img src="photo.png" alt="Фото 3">
+                </div>
+                <div class="hidden-photo" id="photo4">
+                    <img src="photo.png" alt="Фото 4">
+                </div>
+                <div class="hidden-photo" id="photo5">
+                    <img src="photo.png" alt="Фото 5">
+                </div>
+            </div>
+        </div>
+
         <!-- Индикаторы для мобильных/планшетов -->
         <div class="mobile-indicators" id="indicators">
             <div class="indicator active" data-index="0"></div>
@@ -890,10 +1316,6 @@
             <div class="indicator" data-index="3"></div>
             <div class="indicator" data-index="4"></div>
             <div class="indicator" data-index="5"></div>
-        </div>
-
-        <div class="overlay-image-container">
-            <img src="fon2.png" alt="Наложение" class="overlay-image">
         </div>
 
         <!-- 6 блоков информации -->
@@ -1298,6 +1720,133 @@
             bgImg.onerror = function () {
                 page.style.minHeight = "2530px";
             };
+        }
+
+        // Интерактивная галерея
+        const galleryContainer = document.querySelector('.gallery-container');
+        const learnMoreBtn = document.getElementById('learnMoreBtn');
+        const prevTextBtn = document.querySelector('.prev-text-btn');
+        const nextTextBtn = document.querySelector('.next-text-btn');
+        const textContents = document.querySelectorAll('.text-content');
+        const hiddenPhotos = document.querySelectorAll('.hidden-photo');
+        const navButtons = document.querySelector('.nav-buttons');
+        
+        let currentTextIndex = 0;
+        let photosActive = false;
+        
+        // Фотографии для разных текстов (можно заменить на разные изображения)
+        const photosForTexts = [
+            ['photo.png', 'photo.png', 'photo.png', 'photo.png', 'photo.png'], // Для текста 1
+            ['photo.png', 'photo.png', 'photo.png', 'photo.png', 'photo.png'], // Для текста 2
+            ['photo.png', 'photo.png', 'photo.png', 'photo.png', 'photo.png'], // Для текста 3
+            ['photo.png', 'photo.png', 'photo.png', 'photo.png', 'photo.png']  // Для текста 4
+        ];
+        
+        // Функция показа/скрытия текста
+        function showText(index) {
+            // Скрываем все тексты
+            textContents.forEach(text => {
+                text.style.display = 'none';
+            });
+            
+            // Показываем нужный текст
+            textContents[index].style.display = 'block';
+            currentTextIndex = index;
+            
+            // Обновляем фотографии при смене текста
+            if (photosActive) {
+                updatePhotosForCurrentText();
+            }
+        }
+        
+        // Функция обновления фотографий для текущего текста
+        function updatePhotosForCurrentText() {
+            const currentPhotos = photosForTexts[currentTextIndex];
+            
+            hiddenPhotos.forEach((photo, index) => {
+                if (currentPhotos[index]) {
+                    photo.querySelector('img').src = currentPhotos[index];
+                }
+            });
+        }
+        
+        // Функция активации фотографий
+        function activatePhotos() {
+            if (!photosActive) {
+                // Показываем фотографии
+                galleryContainer.classList.add('photos-active');
+                photosActive = true;
+                
+                // Скрываем кнопку "Узнать больше", показываем навигацию
+                learnMoreBtn.style.display = 'none';
+                navButtons.style.display = 'flex';
+                
+                // Обновляем фотографии для текущего текста
+                updatePhotosForCurrentText();
+            }
+        }
+        
+        // Функция деактивации фотографий
+        function deactivatePhotos() {
+            if (photosActive) {
+                // Скрываем фотографии
+                galleryContainer.classList.remove('photos-active');
+                photosActive = false;
+                
+                // Показываем кнопку "Узнать больше", скрываем навигацию
+                learnMoreBtn.style.display = 'block';
+                navButtons.style.display = 'none';
+            }
+        }
+        
+        // Инициализация галереи
+        if (galleryContainer && learnMoreBtn) {
+            // Показываем первый текст
+            showText(0);
+            
+            // Обработчик для кнопки "Узнать больше"
+            learnMoreBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                activatePhotos();
+            });
+            
+            // Обработчик для кнопки "Назад"
+            prevTextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                let newIndex = currentTextIndex - 1;
+                if (newIndex < 0) newIndex = textContents.length - 1;
+                showText(newIndex);
+            });
+            
+            // Обработчик для кнопки "Далее"
+            nextTextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                let newIndex = currentTextIndex + 1;
+                if (newIndex >= textContents.length) newIndex = 0;
+                showText(newIndex);
+            });
+            
+            // Закрытие фотографий по клику на любую фотографию
+            hiddenPhotos.forEach(photo => {
+                photo.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    deactivatePhotos();
+                });
+            });
+            
+            // Закрытие фотографий по клику вне галереи
+            document.addEventListener('click', function(e) {
+                if (photosActive && !galleryContainer.contains(e.target)) {
+                    deactivatePhotos();
+                }
+            });
+            
+            // Закрытие фотографий по нажатию Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && photosActive) {
+                    deactivatePhotos();
+                }
+            });
         }
 
         // Код для обработки формы обратной связи
