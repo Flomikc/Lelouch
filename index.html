@@ -19,6 +19,9 @@
         background-color: #f0f0f0;
         overflow-x: auto;
         overflow-y: auto;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
       }
 
       .page {
@@ -32,6 +35,7 @@
         background-repeat: no-repeat;
         overflow: hidden;
         margin: 0 auto;
+        flex: 1;
       }
 
       /* Якорь - вернул исходную позицию */
@@ -227,6 +231,180 @@
         text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
       }
 
+      /* Стили для подвала с формой */
+      .footer {
+        width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
+        background-color: rgba(240, 240, 240, 0.95);
+        padding: 40px 20px;
+        border-top: 3px solid rgba(128, 0, 128, 0.1);
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: space-between;
+      }
+
+      .contact-form-container {
+        flex: 1;
+        min-width: 300px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-info {
+        flex: 1;
+        min-width: 300px;
+        padding: 20px;
+      }
+
+      .contact-info h3 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 24px;
+      }
+
+      .contact-info p {
+        color: #555;
+        margin-bottom: 15px;
+        font-size: 16px;
+      }
+
+      .form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-group label {
+        font-size: 16px;
+        color: #333;
+        font-weight: bold;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        transition: all 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: rgba(128, 0, 128, 0.5);
+        box-shadow: 0 0 0 2px rgba(128, 0, 128, 0.1);
+      }
+
+      .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .form-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      .submit-btn {
+        flex: 2;
+        padding: 14px 20px;
+        background-color: rgba(119, 119, 119, 0.9);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .submit-btn:hover:not(:disabled) {
+        background-color: rgba(100, 100, 100, 0.95);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .reset-btn {
+        flex: 1;
+        padding: 14px 20px;
+        background-color: rgba(220, 220, 220, 0.9);
+        color: #333;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .reset-btn:hover {
+        background-color: rgba(200, 200, 200, 0.95);
+        transform: translateY(-2px);
+      }
+
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      .message {
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 15px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+        display: none;
+      }
+
+      .success {
+        background-color: rgba(46, 204, 113, 0.15);
+        color: #27ae60;
+        border: 1px solid #27ae60;
+      }
+
+      .error {
+        background-color: rgba(231, 76, 60, 0.15);
+        color: #c0392b;
+        border: 1px solid #c0392b;
+      }
+
+      .loading {
+        background-color: rgba(52, 152, 219, 0.15);
+        color: #2980b9;
+        border: 1px solid #2980b9;
+      }
+
+      .copyright {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+        color: #666;
+        font-size: 14px;
+      }
+
       /* Адаптивные стили для мобильных устройств */
       @media (max-width: 1920px) {
         /* Масштабируем блоки и якорь пропорционально */
@@ -270,6 +448,25 @@
         p {
           font-size: 16px;
         }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .contact-form-container,
+        .contact-info {
+          min-width: 100%;
+        }
+
+        .form-buttons {
+          flex-direction: column;
+        }
+
+        .submit-btn,
+        .reset-btn {
+          width: 100%;
+        }
       }
 
       @media (max-width: 480px) {
@@ -294,6 +491,24 @@
         }
 
         p {
+          font-size: 14px;
+        }
+
+        .contact-form-container {
+          padding: 20px;
+        }
+
+        .contact-info h3 {
+          font-size: 20px;
+        }
+
+        .form-group label {
+          font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+          padding: 10px 12px;
           font-size: 14px;
         }
       }
@@ -371,6 +586,88 @@
       </div>
     </div>
 
+    <!-- Подвал сайта с формой обратной связи -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="contact-info">
+          <h3>Свяжитесь со мной</h3>
+          <p>
+            Если у вас есть вопросы или предложения, напишите мне через форму
+            обратной связи.
+          </p>
+          <p>Я отвечу в течение 24 часов в рабочие дни.</p>
+          <p>Вы также можете связаться со мной по email: example@mail.com</p>
+        </div>
+
+        <div class="contact-form-container">
+          <h2>Форма обратной связи</h2>
+          <p>Напишите мне, и я отвечу в ближайшее время</p>
+
+          <form
+            id="contactForm"
+            class="form-container"
+            action="https://formspree.io/f/xovgnegg"
+            method="POST"
+          >
+            <div class="form-group">
+              <label for="name">Ваше имя:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Введите ваше имя"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Ваш email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="example@mail.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Сообщение:</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                placeholder="Напишите ваше сообщение здесь..."
+              ></textarea>
+            </div>
+
+            <!-- Дополнительные поля для Formspree -->
+            <input
+              type="hidden"
+              name="_subject"
+              value="Новое сообщение с сайта-визитки разработчика"
+            />
+            <input type="text" name="_gotcha" style="display: none" />
+
+            <div class="form-buttons">
+              <button type="button" class="reset-btn" id="resetBtn">
+                Очистить
+              </button>
+              <button type="submit" class="submit-btn" id="submitBtn">
+                Отправить сообщение
+              </button>
+            </div>
+
+            <div class="message" id="formMessage"></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2024 Сайт-визитка разработчика. Все права защищены.
+      </div>
+    </footer>
+
     <script>
       let currentBlock = 0;
       let isAnimating = false;
@@ -393,11 +690,11 @@
 
       // Флаг анимации для предотвращения множественных нажатий
       function setButtonsDisabled(disabled) {
-        document.querySelectorAll("button").forEach((btn) => {
-          if (!btn.classList.contains("read-btn")) {
+        document
+          .querySelectorAll(".next-btn, .prev-btn, .read-btn")
+          .forEach((btn) => {
             btn.disabled = disabled;
-          }
-        });
+          });
       }
 
       // Функция для расчета коэффициента масштабирования
@@ -475,7 +772,7 @@
         rotateSmoothly("prev");
       }
 
-      // Назначаем обработчики для всех кнопок
+      // Назначаем обработчики для всех кнопок навигации
       document.querySelectorAll(".next-btn").forEach((btn) => {
         btn.addEventListener("click", next);
       });
@@ -526,6 +823,119 @@
           page.style.minHeight = "2530px";
         };
       }
+
+      // Код для обработки формы обратной связи
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactForm = document.getElementById("contactForm");
+        const submitBtn = document.getElementById("submitBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const formMessage = document.getElementById("formMessage");
+
+        // Валидация email
+        function validateEmail(email) {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return re.test(email);
+        }
+
+        // Показать сообщение
+        function showMessage(text, type) {
+          formMessage.textContent = text;
+          formMessage.className = "message " + type;
+          formMessage.style.display = "block";
+
+          // Автоматическое скрытие сообщения через 5 секунд
+          if (type === "success" || type === "error") {
+            setTimeout(() => {
+              formMessage.style.display = "none";
+            }, 5000);
+          }
+        }
+
+        // Обработка сброса формы
+        resetBtn.addEventListener("click", function () {
+          contactForm.reset();
+          formMessage.style.display = "none";
+        });
+
+        // Обработка отправки формы
+        async function handleSubmit(event) {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const message = document.getElementById("message").value.trim();
+
+          // Валидация
+          if (!name || !email || !message) {
+            showMessage("Пожалуйста, заполните все поля", "error");
+            return;
+          }
+
+          if (!validateEmail(email)) {
+            showMessage("Введите корректный email адрес", "error");
+            return;
+          }
+
+          // Показываем загрузку
+          showMessage("Отправка сообщения...", "loading");
+          submitBtn.disabled = true;
+
+          try {
+            // Добавляем имя в скрытое поле (Formspree не показывает его в шаблоне по умолчанию)
+            const nameField = document.createElement("input");
+            nameField.type = "hidden";
+            nameField.name = "Имя";
+            nameField.value = name;
+            contactForm.appendChild(nameField);
+
+            // Отправка через Formspree
+            const response = await fetch(contactForm.action, {
+              method: "POST",
+              body: new FormData(contactForm),
+              headers: {
+                Accept: "application/json",
+              },
+            });
+
+            // Удаляем временное поле
+            contactForm.removeChild(nameField);
+
+            if (response.ok) {
+              // Успешная отправка
+              showMessage(
+                "✅ Сообщение успешно отправлено! Я отвечу вам в ближайшее время.",
+                "success"
+              );
+              contactForm.reset();
+            } else {
+              // Ошибка от Formspree
+              showMessage(
+                "❌ Произошла ошибка при отправке. Попробуйте еще раз.",
+                "error"
+              );
+            }
+          } catch (error) {
+            // Ошибка сети
+            showMessage(
+              "❌ Ошибка сети. Пожалуйста, проверьте соединение.",
+              "error"
+            );
+          } finally {
+            // Включаем кнопку обратно
+            submitBtn.disabled = false;
+          }
+        }
+
+        // Назначаем обработчики для формы
+        contactForm.addEventListener("submit", handleSubmit);
+        submitBtn.addEventListener("click", function (event) {
+          if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+          }
+          handleSubmit(event);
+        });
+      });
 
       // Инициализация
       window.addEventListener("load", () => {
