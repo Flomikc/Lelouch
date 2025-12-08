@@ -215,6 +215,25 @@
             box-shadow: none !important;
         }
 
+        /* ВСТАВЬТЕ СТИЛИ ДЛЯ OVERLAY-ИЗОБРАЖЕНИЯ ЗДЕСЬ */
+        .overlay-image-container {
+            position: absolute;
+            width: 100%;
+            top: 804px; /* Фиксированная позиция по Y */
+            left: 0;
+            z-index: 10; /* Значение выше, чем у info-block (2) и anchor (1) */
+            pointer-events: none; /* Чтобы не мешало кликам */
+        }
+
+        .overlay-image {
+            width: 100%; /* Растягиваем на всю ширину */
+            height: auto; /* Высота автоматически сохраняет пропорции */
+            display: block;
+            max-width: 1920px; /* Ограничиваем максимальную ширину как у .page */
+            margin: 0 auto; /* Центрируем */
+        }
+        /* КОНЕЦ ВСТАВКИ СТИЛЕЙ */
+
         h2 {
             margin-bottom: 15px;
             color: #333;
@@ -802,6 +821,26 @@
             }
         }
 
+        /* ВСТАВЬТЕ АДАПТИВНОСТЬ ДЛЯ OVERLAY-ИЗОБРАЖЕНИЯ ЗДЕСЬ */
+        @media (max-width: 1920px) {
+            .overlay-image {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .overlay-image-container {
+                top: 400px; /* Измените на нужную позицию для мобильных */
+                z-index: 5;
+            }
+            
+            .overlay-image {
+                opacity: 0.8; /* Можно сделать полупрозрачным для мобильных */
+            }
+        }
+        /* КОНЕЦ АДАПТИВНОСТИ */
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateX(-50%) translateY(20px); }
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -851,6 +890,10 @@
             <div class="indicator" data-index="3"></div>
             <div class="indicator" data-index="4"></div>
             <div class="indicator" data-index="5"></div>
+        </div>
+
+        <div class="overlay-image-container">
+            <img src="fon2.png" alt="Наложение" class="overlay-image">
         </div>
 
         <!-- 6 блоков информации -->
