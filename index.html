@@ -1,954 +1,1371 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Сайт</title>
+    <title>Сайт-визитка разработчика</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        min-height: 100vh;
-        background-color: #f0f0f0;
-        overflow-x: auto;
-        overflow-y: auto;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .page {
-        position: relative;
-        width: 100%;
-        max-width: 1920px;
-        min-height: 100vh;
-        background-image: url("fon.png");
-        background-size: 100% auto;
-        background-position: top center;
-        background-repeat: no-repeat;
-        overflow: hidden;
-        margin: 0 auto;
-        flex: 1;
-      }
-
-      /* Якорь - вернул исходную позицию */
-      .anchor {
-        position: absolute;
-        width: 1189px;
-        height: 1189px;
-        top: -99px;
-        left: 788px;
-        transform-origin: 594.5px 594.5px; /* Центр якоря (1189/2) */
-        transition: transform 0.8s ease;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .anchor img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        pointer-events: none;
-        object-fit: contain;
-      }
-
-      /* Блоки информации - исходные размеры и позиции */
-      .info-block {
-        position: absolute;
-        width: 658px;
-        height: 461px;
-        background-color: rgba(128, 0, 128, 0.03);
-        border: 5px solid white;
-        border-radius: 30px;
-        transition: all 0.8s ease;
-        backdrop-filter: blur(7px);
-        -webkit-backdrop-filter: blur(7px);
-        z-index: 2;
-
-        /* Эффект текстуры */
-        background-image: radial-gradient(
-          circle at 50% 50%,
-          rgba(255, 255, 255, 0.1) 1px,
-          transparent 1px
-        );
-        background-size: 6.5px 6.5px;
-      }
-
-      /* Псевдоэлемент для дополнительных эффектов */
-      .info-block::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 25px;
-        background: radial-gradient(
-            circle at 50% 0%,
-            rgba(255, 255, 255, 0.1),
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 100% 50%,
-            rgba(255, 255, 255, 0.05),
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 50% 100%,
-            rgba(255, 255, 255, 0.05),
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 0% 50%,
-            rgba(255, 255, 255, 0.05),
-            transparent 50%
-          );
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      /* Внутренняя тень для эффекта глубины */
-      .info-block::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 30px;
-        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3),
-          inset 0 -1px 2px rgba(0, 0, 0, 0.1);
-        pointer-events: none;
-        z-index: 2;
-      }
-
-      .content {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        right: 20px;
-        bottom: 80px;
-        color: #333;
-        z-index: 3;
-        padding: 20px;
-        overflow: hidden;
-      }
-
-      .next-btn {
-        position: absolute;
-        top: 294px;
-        left: 24px;
-        width: 200px;
-        height: 50px;
-        background-color: rgba(102, 102, 102, 0.8);
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 10px;
-        z-index: 3;
-        font-size: 16px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-      }
-
-      .next-btn:hover:not(:disabled) {
-        background-color: rgba(85, 85, 85, 0.9);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      }
-
-      .prev-btn {
-        position: absolute;
-        top: 383px;
-        left: 24px;
-        width: 200px;
-        height: 50px;
-        background-color: rgba(102, 102, 102, 0.8);
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 10px;
-        z-index: 3;
-        font-size: 16px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-      }
-
-      .prev-btn:hover:not(:disabled) {
-        background-color: rgba(85, 85, 85, 0.9);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      }
-
-      .read-btn {
-        position: absolute;
-        top: 382px;
-        left: 279px;
-        width: 350px;
-        height: 50px;
-        background-color: rgba(119, 119, 119, 0.8);
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 10px;
-        z-index: 3;
-        font-size: 16px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-      }
-
-      .read-btn:hover:not(:disabled) {
-        background-color: rgba(100, 100, 100, 0.9);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      }
-
-      button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none !important;
-        box-shadow: none !important;
-      }
-
-      h2 {
-        margin-bottom: 15px;
-        color: #333;
-        font-size: 28px;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-      }
-
-      p {
-        color: #444;
-        font-size: 18px;
-        line-height: 1.5;
-        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
-      }
-
-      /* Стили для подвала с формой */
-      .footer {
-        width: 100%;
-        max-width: 1920px;
-        margin: 0 auto;
-        background-color: rgba(240, 240, 240, 0.95);
-        padding: 40px 20px;
-        border-top: 3px solid rgba(128, 0, 128, 0.1);
-      }
-
-      .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        justify-content: space-between;
-      }
-
-      .contact-form-container {
-        flex: 1;
-        min-width: 300px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .contact-info {
-        flex: 1;
-        min-width: 300px;
-        padding: 20px;
-      }
-
-      .contact-info h3 {
-        color: #333;
-        margin-bottom: 20px;
-        font-size: 24px;
-      }
-
-      .contact-info p {
-        color: #555;
-        margin-bottom: 15px;
-        font-size: 16px;
-      }
-
-      .form-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .form-group label {
-        font-size: 16px;
-        color: #333;
-        font-weight: bold;
-      }
-
-      .form-group input,
-      .form-group textarea {
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 16px;
-        font-family: Arial, sans-serif;
-        transition: all 0.3s ease;
-        background-color: rgba(255, 255, 255, 0.8);
-      }
-
-      .form-group input:focus,
-      .form-group textarea:focus {
-        outline: none;
-        border-color: rgba(128, 0, 128, 0.5);
-        box-shadow: 0 0 0 2px rgba(128, 0, 128, 0.1);
-      }
-
-      .form-group textarea {
-        min-height: 120px;
-        resize: vertical;
-      }
-
-      .form-buttons {
-        display: flex;
-        gap: 15px;
-        margin-top: 10px;
-      }
-
-      .submit-btn {
-        flex: 2;
-        padding: 14px 20px;
-        background-color: rgba(119, 119, 119, 0.9);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .submit-btn:hover:not(:disabled) {
-        background-color: rgba(100, 100, 100, 0.95);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      .reset-btn {
-        flex: 1;
-        padding: 14px 20px;
-        background-color: rgba(220, 220, 220, 0.9);
-        color: #333;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .reset-btn:hover {
-        background-color: rgba(200, 200, 200, 0.95);
-        transform: translateY(-2px);
-      }
-
-      .submit-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none !important;
-        box-shadow: none !important;
-      }
-
-      .message {
-        padding: 12px;
-        border-radius: 8px;
-        margin-top: 15px;
-        text-align: center;
-        font-weight: bold;
-        font-size: 14px;
-        display: none;
-      }
-
-      .success {
-        background-color: rgba(46, 204, 113, 0.15);
-        color: #27ae60;
-        border: 1px solid #27ae60;
-      }
-
-      .error {
-        background-color: rgba(231, 76, 60, 0.15);
-        color: #c0392b;
-        border: 1px solid #c0392b;
-      }
-
-      .loading {
-        background-color: rgba(52, 152, 219, 0.15);
-        color: #2980b9;
-        border: 1px solid #2980b9;
-      }
-
-      .copyright {
-        text-align: center;
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid #ddd;
-        color: #666;
-        font-size: 14px;
-      }
-
-      /* Адаптивные стили для мобильных устройств */
-      @media (max-width: 1920px) {
-        /* Масштабируем блоки и якорь пропорционально */
-        .anchor {
-          transform: scale(calc(100vw / 1920));
-          transform-origin: 594.5px 594.5px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .info-block {
-          transform: scale(calc(100vw / 1920));
-          transform-origin: 0 0;
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            overflow-x: auto;
+            overflow-y: auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
         }
-      }
 
-      @media (max-width: 768px) {
+        /* =================== ОБЩИЕ СТИЛИ =================== */
         .page {
-          background-size: 100% auto;
+            position: relative;
+            width: 100%;
+            max-width: 1920px;
+            min-height: 100vh;
+            background-image: url("fon.png");
+            background-size: 100% auto;
+            background-position: top center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            margin: 0 auto;
+            flex: 1;
         }
 
-        /* Для мобильных уменьшаем масштаб */
+        /* Якорь - фиксированные размеры для ПК */
         .anchor {
-          transform: scale(calc(100vw / 1920 * 0.8));
-          transform-origin: 594.5px 594.5px;
+            position: absolute;
+            width: 1189px;
+            height: 1189px;
+            top: -99px;
+            left: 788px;
+            transform-origin: 594.5px 594.5px;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 1;
         }
 
+        .anchor img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+            object-fit: contain;
+        }
+
+        /* Блоки информации */
         .info-block {
-          transform: scale(calc(100vw / 1920 * 0.8));
-          transform-origin: 0 0;
+            position: absolute;
+            width: 658px;
+            height: 461px;
+            background-color: rgba(128, 0, 128, 0.03);
+            border: 5px solid white;
+            border-radius: 30px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+            z-index: 2;
+
+            background-image: radial-gradient(
+                circle at 50% 50%,
+                rgba(255, 255, 255, 0.1) 1px,
+                transparent 1px
+            );
+            background-size: 6.5px 6.5px;
         }
 
-        .next-btn,
-        .prev-btn,
+        .info-block::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 25px;
+            background: radial-gradient(
+                    circle at 50% 0%,
+                    rgba(255, 255, 255, 0.1),
+                    transparent 50%
+                ),
+                radial-gradient(
+                    circle at 100% 50%,
+                    rgba(255, 255, 255, 0.05),
+                    transparent 50%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(255, 255, 255, 0.05),
+                    transparent 50%
+                ),
+                radial-gradient(
+                    circle at 0% 50%,
+                    rgba(255, 255, 255, 0.05),
+                    transparent 50%
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .info-block::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 30px;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .content {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 80px;
+            color: #333;
+            z-index: 3;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .next-btn {
+            position: absolute;
+            top: 294px;
+            left: 24px;
+            width: 200px;
+            height: 50px;
+            background-color: rgba(102, 102, 102, 0.8);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            z-index: 3;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            background-color: rgba(85, 85, 85, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .prev-btn {
+            position: absolute;
+            top: 383px;
+            left: 24px;
+            width: 200px;
+            height: 50px;
+            background-color: rgba(102, 102, 102, 0.8);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            z-index: 3;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .prev-btn:hover:not(:disabled) {
+            background-color: rgba(85, 85, 85, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
         .read-btn {
-          font-size: 14px;
+            position: absolute;
+            top: 382px;
+            left: 279px;
+            width: 350px;
+            height: 50px;
+            background-color: rgba(119, 119, 119, 0.8);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            z-index: 3;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .read-btn:hover:not(:disabled) {
+            background-color: rgba(100, 100, 100, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         h2 {
-          font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 28px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
         }
 
         p {
-          font-size: 16px;
+            color: #444;
+            font-size: 18px;
+            line-height: 1.5;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        /* =================== ПОДВАЛ =================== */
+        .footer {
+            width: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            background-color: rgba(240, 240, 240, 0.95);
+            padding: 40px 20px;
+            border-top: 3px solid rgba(128, 0, 128, 0.1);
         }
 
         .footer-content {
-          flex-direction: column;
-          gap: 30px;
-        }
-
-        .contact-form-container,
-        .contact-info {
-          min-width: 100%;
-        }
-
-        .form-buttons {
-          flex-direction: column;
-        }
-
-        .submit-btn,
-        .reset-btn {
-          width: 100%;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .anchor {
-          transform: scale(calc(100vw / 1920 * 0.6));
-          transform-origin: 594.5px 594.5px;
-        }
-
-        .info-block {
-          transform: scale(calc(100vw / 1920 * 0.6));
-          transform-origin: 0 0;
-        }
-
-        .next-btn,
-        .prev-btn,
-        .read-btn {
-          font-size: 12px;
-        }
-
-        h2 {
-          font-size: 18px;
-        }
-
-        p {
-          font-size: 14px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
         }
 
         .contact-form-container {
-          padding: 20px;
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
         }
 
         .contact-info h3 {
-          font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .contact-info p {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .form-group label {
-          font-size: 14px;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
         }
 
         .form-group input,
         .form-group textarea {
-          padding: 10px 12px;
-          font-size: 14px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.8);
         }
-      }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(128, 0, 128, 0.5);
+            box-shadow: 0 0 0 2px rgba(128, 0, 128, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .submit-btn {
+            flex: 2;
+            padding: 14px 20px;
+            background-color: rgba(119, 119, 119, 0.9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background-color: rgba(100, 100, 100, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .reset-btn {
+            flex: 1;
+            padding: 14px 20px;
+            background-color: rgba(220, 220, 220, 0.9);
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background-color: rgba(200, 200, 200, 0.95);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            display: none;
+        }
+
+        .success {
+            background-color: rgba(46, 204, 113, 0.15);
+            color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+
+        .error {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: #c0392b;
+            border: 1px solid #c0392b;
+        }
+
+        .loading {
+            background-color: rgba(52, 152, 219, 0.15);
+            color: #2980b9;
+            border: 1px solid #2980b9;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* =================== АДАПТИВНОСТЬ =================== */
+
+        /* 1. НОУТБУКИ (1440px - 1920px) */
+        @media (max-width: 1920px) and (min-width: 1441px) {
+            /* Плавное масштабирование */
+            .anchor {
+                transform: scale(calc(100vw / 1920));
+            }
+            
+            .info-block {
+                transform: scale(calc(100vw / 1920));
+            }
+        }
+
+        /* 2. МАЛЕНЬКИЕ НОУТБУКИ (1024px - 1440px) */
+        @media (max-width: 1440px) and (min-width: 1025px) {
+            .page {
+                background-size: cover;
+            }
+            
+            .anchor {
+                transform: scale(0.8);
+                transform-origin: 594.5px 594.5px;
+            }
+            
+            .info-block {
+                transform: scale(0.8);
+            }
+            
+            .next-btn,
+            .prev-btn,
+            .read-btn {
+                font-size: 15px;
+                width: 180px;
+            }
+            
+            .read-btn {
+                width: 320px;
+                left: 250px;
+            }
+            
+            h2 {
+                font-size: 26px;
+            }
+            
+            p {
+                font-size: 17px;
+            }
+        }
+
+        /* 3. ПЛАНШЕТЫ ГОРИЗОНТАЛЬНЫЕ (768px - 1024px) */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .page {
+                background-size: cover;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 100px;
+            }
+            
+            .anchor {
+                position: relative;
+                width: 600px;
+                height: 600px;
+                top: 0;
+                left: 0;
+                margin: 0 auto 40px;
+                transform-origin: center;
+            }
+            
+            .info-block {
+                position: relative;
+                width: 700px;
+                height: 500px;
+                margin: 20px auto;
+                display: none;
+            }
+            
+            .info-block.active {
+                display: block;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .next-btn,
+            .prev-btn {
+                width: 180px;
+                height: 55px;
+                font-size: 16px;
+            }
+            
+            .read-btn {
+                width: 340px;
+                height: 55px;
+                left: 230px;
+                font-size: 16px;
+            }
+            
+            h2 {
+                font-size: 26px;
+                text-align: center;
+            }
+            
+            p {
+                font-size: 18px;
+                text-align: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .contact-form-container,
+            .contact-info {
+                min-width: 100%;
+            }
+        }
+
+        /* 4. ПЛАНШЕТЫ ВЕРТИКАЛЬНЫЕ (481px - 768px) */
+        @media (max-width: 768px) and (min-width: 481px) {
+            .page {
+                background-size: cover;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 80px;
+            }
+            
+            .anchor {
+                position: relative;
+                width: 500px;
+                height: 500px;
+                top: 0;
+                left: 0;
+                margin: 0 auto 30px;
+                transform-origin: center;
+            }
+            
+            .info-block {
+                position: relative;
+                width: 90%;
+                max-width: 600px;
+                height: auto;
+                min-height: 400px;
+                margin: 20px auto;
+                display: none;
+            }
+            
+            .info-block.active {
+                display: block;
+            }
+            
+            .content {
+                position: relative;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 30px;
+                height: auto;
+            }
+            
+            .next-btn,
+            .prev-btn,
+            .read-btn {
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 100%;
+                margin: 10px 0;
+                height: 50px;
+                font-size: 16px;
+            }
+            
+            .read-btn {
+                margin-left: 0;
+            }
+            
+            .buttons-container {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 24px;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            p {
+                font-size: 17px;
+                text-align: center;
+                line-height: 1.6;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .contact-form-container,
+            .contact-info {
+                min-width: 100%;
+            }
+            
+            .form-buttons {
+                flex-direction: column;
+            }
+            
+            .submit-btn,
+            .reset-btn {
+                width: 100%;
+            }
+        }
+
+        /* 5. ТЕЛЕФОНЫ (до 480px) */
+        @media (max-width: 480px) {
+            body {
+                overflow-x: hidden;
+            }
+            
+            .page {
+                background-size: cover;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                min-height: auto;
+            }
+            
+            /* Якорь - центрируем и увеличиваем */
+            .anchor {
+                position: relative !important;
+                width: 300px !important;
+                height: 300px !important;
+                top: 0 !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                margin: 0 auto 20px !important;
+                transform-origin: center !important;
+            }
+            
+            /* Блоки - увеличиваем в 2 раза и центрируем */
+            .info-block {
+                position: relative !important;
+                width: 95% !important;
+                max-width: 400px !important;
+                height: auto !important;
+                min-height: 350px !important;
+                margin: 15px auto !important;
+                display: none !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                top: 0 !important;
+            }
+            
+            .info-block.active {
+                display: block !important;
+                animation: fadeIn 0.5s ease;
+            }
+            
+            .content {
+                position: relative !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                padding: 25px !important;
+                height: auto !important;
+            }
+            
+            .next-btn,
+            .prev-btn,
+            .read-btn {
+                position: relative !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                margin: 8px 0 !important;
+                height: 55px !important;
+                font-size: 16px !important;
+                font-weight: 600;
+            }
+            
+            .read-btn {
+                margin-left: 0 !important;
+            }
+            
+            .buttons-container {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                padding: 15px;
+                margin-top: 20px;
+            }
+            
+            h2 {
+                font-size: 24px !important;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            p {
+                font-size: 17px !important;
+                text-align: center;
+                line-height: 1.6;
+            }
+            
+            /* Подвал для телефона */
+            .footer {
+                padding: 30px 15px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            .contact-form-container,
+            .contact-info {
+                min-width: 100%;
+                padding: 20px;
+            }
+            
+            .contact-info h3 {
+                font-size: 22px;
+            }
+            
+            .contact-info p {
+                font-size: 15px;
+            }
+            
+            .form-container {
+                gap: 15px;
+            }
+            
+            .form-group label {
+                font-size: 15px;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                padding: 14px;
+                font-size: 15px;
+            }
+            
+            .form-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .submit-btn,
+            .reset-btn {
+                width: 100%;
+                padding: 16px;
+                font-size: 16px;
+            }
+            
+            .copyright {
+                margin-top: 30px;
+                font-size: 13px;
+            }
+        }
+
+        /* 6. ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 360px) */
+        @media (max-width: 360px) {
+            .anchor {
+                width: 250px !important;
+                height: 250px !important;
+            }
+            
+            .info-block {
+                width: 98% !important;
+                min-height: 400px !important;
+            }
+            
+            h2 {
+                font-size: 22px !important;
+            }
+            
+            p {
+                font-size: 16px !important;
+            }
+            
+            .next-btn,
+            .prev-btn,
+            .read-btn {
+                height: 50px !important;
+                font-size: 15px !important;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* Индикаторы для мобильных */
+        .mobile-indicators {
+            display: none;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-indicators {
+                display: flex;
+            }
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(102, 102, 102, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background-color: rgba(102, 102, 102, 0.8);
+            transform: scale(1.2);
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="page" id="page">
-      <!-- Якорь -->
-      <div class="anchor" id="anchor">
-        <img src="outside.png" alt="Якорь" width="1189" height="1189" />
-      </div>
-
-      <!-- 6 блоков информации -->
-      <div class="info-block" id="block1" style="top: 265px; left: 233px">
-        <div class="content">
-          <h2>Блок 1</h2>
-          <p>
-            Текст блока 1. Это пример текста для демонстрации эффекта матового
-            стекла.
-          </p>
+        <!-- Якорь -->
+        <div class="anchor" id="anchor">
+            <img src="outside.png" alt="Якорь" width="1189" height="1189" />
         </div>
-        <button class="next-btn">Далее</button>
-        <button class="prev-btn">Назад</button>
-        <button class="read-btn">Перейти к чтению</button>
-      </div>
 
-      <div class="info-block" id="block2">
-        <div class="content">
-          <h2>Блок 2</h2>
-          <p>Текст блока 2. Эффект матового стекла с градиентом и текстурой.</p>
+        <!-- Индикаторы для мобильных/планшетов -->
+        <div class="mobile-indicators" id="indicators">
+            <div class="indicator active" data-index="0"></div>
+            <div class="indicator" data-index="1"></div>
+            <div class="indicator" data-index="2"></div>
+            <div class="indicator" data-index="3"></div>
+            <div class="indicator" data-index="4"></div>
+            <div class="indicator" data-index="5"></div>
         </div>
-        <button class="next-btn">Далее</button>
-        <button class="prev-btn">Назад</button>
-        <button class="read-btn">Перейти к чтению</button>
-      </div>
 
-      <div class="info-block" id="block3">
-        <div class="content">
-          <h2>Блок 3</h2>
-          <p>Текст блока 3. Прозрачность и размытие создают глубину.</p>
+        <!-- 6 блоков информации -->
+        <div class="info-block active" id="block1" style="top: 265px; left: 233px">
+            <div class="content">
+                <h2>Блок 1</h2>
+                <p>
+                    Текст блока 1. Это пример текста для демонстрации эффекта матового
+                    стекла.
+                </p>
+            </div>
+            <div class="buttons-container">
+                <button class="next-btn">Далее</button>
+                <button class="prev-btn">Назад</button>
+                <button class="read-btn">Перейти к чтению</button>
+            </div>
         </div>
-        <button class="next-btn">Далее</button>
-        <button class="prev-btn">Назад</button>
-        <button class="read-btn">Перейти к чтению</button>
-      </div>
 
-      <div class="info-block" id="block4">
-        <div class="content">
-          <h2>Блок 4</h2>
-          <p>Текст блока 4. Белая граница подчеркивает форму.</p>
+        <div class="info-block" id="block2">
+            <div class="content">
+                <h2>Блок 2</h2>
+                <p>Текст блока 2. Эффект матового стекла с градиентом и текстурой.</p>
+            </div>
+            <div class="buttons-container">
+                <button class="next-btn">Далее</button>
+                <button class="prev-btn">Назад</button>
+                <button class="read-btn">Перейти к чтению</button>
+            </div>
         </div>
-        <button class="next-btn">Далее</button>
-        <button class="prev-btn">Назад</button>
-        <button class="read-btn">Перейти к чтению</button>
-      </div>
 
-      <div class="info-block" id="block5">
-        <div class="content">
-          <h2>Блок 5</h2>
-          <p>Текст блока 5. Скругленные углы и текстура.</p>
+        <div class="info-block" id="block3">
+            <div class="content">
+                <h2>Блок 3</h2>
+                <p>Текст блока 3. Прозрачность и размытие создают глубину.</p>
+            </div>
+            <div class="buttons-container">
+                <button class="next-btn">Далее</button>
+                <button class="prev-btn">Назад</button>
+                <button class="read-btn">Перейти к чтению</button>
+            </div>
         </div>
-        <button class="next-btn">Далее</button>
-        <button class="prev-btn">Назад</button>
-        <button class="read-btn">Перейти к чтению</button>
-      </div>
 
-      <div class="info-block" id="block6">
-        <div class="content">
-          <h2>Блок 6</h2>
-          <p>Текст блока 6. Завершающий блок с эффектом стекла.</p>
+        <div class="info-block" id="block4">
+            <div class="content">
+                <h2>Блок 4</h2>
+                <p>Текст блока 4. Белая граница подчеркивает форму.</p>
+            </div>
+            <div class="buttons-container">
+                <button class="next-btn">Далее</button>
+                <button class="prev-btn">Назад</button>
+                <button class="read-btn">Перейти к чтению</button>
+            </div>
         </div>
-        <button class="next-btn">Далее</button>
-        <button class="prev-btn">Назад</button>
-        <button class="read-btn">Перейти к чтению</button>
-      </div>
+
+        <div class="info-block" id="block5">
+            <div class="content">
+                <h2>Блок 5</h2>
+                <p>Текст блока 5. Скругленные углы и текстура.</p>
+            </div>
+            <div class="buttons-container">
+                <button class="next-btn">Далее</button>
+                <button class="prev-btn">Назад</button>
+                <button class="read-btn">Перейти к чтению</button>
+            </div>
+        </div>
+
+        <div class="info-block" id="block6">
+            <div class="content">
+                <h2>Блок 6</h2>
+                <p>Текст блока 6. Завершающий блок с эффектом стекла.</p>
+            </div>
+            <div class="buttons-container">
+                <button class="next-btn">Далее</button>
+                <button class="prev-btn">Назад</button>
+                <button class="read-btn">Перейти к чтению</button>
+            </div>
+        </div>
     </div>
 
     <!-- Подвал сайта с формой обратной связи -->
     <footer class="footer">
-      <div class="footer-content">
-        <div class="contact-info">
-          <h3>Свяжитесь со мной</h3>
-          <p>
-            Если у вас есть вопросы или предложения, напишите мне через форму
-            обратной связи.
-          </p>
-          <p>Я отвечу в течение 24 часов в рабочие дни.</p>
-          <p>Вы также можете связаться со мной по email: example@mail.com</p>
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Свяжитесь со мной</h3>
+                <p>
+                    Если у вас есть вопросы или предложения, напишите мне через форму
+                    обратной связи.
+                </p>
+                <p>Я отвечу в течение 24 часов в рабочие дни.</p>
+                <p>Вы также можете связаться со мной по email: example@mail.com</p>
+            </div>
+
+            <div class="contact-form-container">
+                <h2>Форма обратной связи</h2>
+                <p>Напишите мне, и я отвечу в ближайшее время</p>
+
+                <form
+                    id="contactForm"
+                    class="form-container"
+                    action="https://formspree.io/f/xovgnegg"
+                    method="POST"
+                >
+                    <div class="form-group">
+                        <label for="name">Ваше имя:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            placeholder="Введите ваше имя"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Ваш email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="example@mail.com"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Сообщение:</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            required
+                            placeholder="Напишите ваше сообщение здесь..."
+                        ></textarea>
+                    </div>
+
+                    <!-- Дополнительные поля для Formspree -->
+                    <input
+                        type="hidden"
+                        name="_subject"
+                        value="Новое сообщение с сайта-визитки разработчика"
+                    />
+                    <input type="text" name="_gotcha" style="display: none" />
+
+                    <div class="form-buttons">
+                        <button type="button" class="reset-btn" id="resetBtn">
+                            Очистить
+                        </button>
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            Отправить сообщение
+                        </button>
+                    </div>
+
+                    <div class="message" id="formMessage"></div>
+                </form>
+            </div>
         </div>
 
-        <div class="contact-form-container">
-          <h2>Форма обратной связи</h2>
-          <p>Напишите мне, и я отвечу в ближайшее время</p>
-
-          <form
-            id="contactForm"
-            class="form-container"
-            action="https://formspree.io/f/xovgnegg"
-            method="POST"
-          >
-            <div class="form-group">
-              <label for="name">Ваше имя:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                placeholder="Введите ваше имя"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="email">Ваш email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                placeholder="example@mail.com"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="message">Сообщение:</label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                placeholder="Напишите ваше сообщение здесь..."
-              ></textarea>
-            </div>
-
-            <!-- Дополнительные поля для Formspree -->
-            <input
-              type="hidden"
-              name="_subject"
-              value="Новое сообщение с сайта-визитки разработчика"
-            />
-            <input type="text" name="_gotcha" style="display: none" />
-
-            <div class="form-buttons">
-              <button type="button" class="reset-btn" id="resetBtn">
-                Очистить
-              </button>
-              <button type="submit" class="submit-btn" id="submitBtn">
-                Отправить сообщение
-              </button>
-            </div>
-
-            <div class="message" id="formMessage"></div>
-          </form>
+        <div class="copyright">
+            © 2024 Сайт-визитка разработчика. Все права защищены.
         </div>
-      </div>
-
-      <div class="copyright">
-        © 2024 Сайт-визитка разработчика. Все права защищены.
-      </div>
     </footer>
 
     <script>
-      let currentBlock = 0;
-      let isAnimating = false;
-      const anchor = document.getElementById("anchor");
-      const blocks = document.querySelectorAll(".info-block");
+        let currentBlock = 0;
+        let isAnimating = false;
+        const anchor = document.getElementById("anchor");
+        const blocks = document.querySelectorAll(".info-block");
+        const indicators = document.querySelectorAll(".indicator");
 
-      // Центр якоря (исходные координаты в пикселях)
-      const centerX = 788 + 594.5;
-      const centerY = -99 + 594.5;
+        // Центр якоря для ПК (исходные координаты)
+        const centerX = 788 + 594.5;
+        const centerY = -99 + 594.5;
 
-      // Позиция блока 1 в пикселях
-      const block1X = 233 + 329;
-      const block1Y = 265 + 230.5;
+        // Позиция блока 1 для ПК
+        const block1X = 233 + 329;
+        const block1Y = 265 + 230.5;
 
-      // Рассчитываем угол и радиус для блока 1
-      const dx = block1X - centerX;
-      const dy = block1Y - centerY;
-      const radius = Math.sqrt(dx * dx + dy * dy);
-      const startAngle = (Math.atan2(dx, -dy) * 180) / Math.PI;
+        // Рассчитываем угол и радиус для блока 1
+        const dx = block1X - centerX;
+        const dy = block1Y - centerY;
+        const radius = Math.sqrt(dx * dx + dy * dy);
+        const startAngle = (Math.atan2(dx, -dy) * 180) / Math.PI;
 
-      // Флаг анимации для предотвращения множественных нажатий
-      function setButtonsDisabled(disabled) {
-        document
-          .querySelectorAll(".next-btn, .prev-btn, .read-btn")
-          .forEach((btn) => {
-            btn.disabled = disabled;
-          });
-      }
-
-      // Функция для расчета коэффициента масштабирования
-      function getScaleFactor() {
-        const pageWidth = window.innerWidth;
-        return Math.min(pageWidth / 1920, 1);
-      }
-
-      // Инициализация позиций блоков
-      function arrangeBlocks() {
-        for (let i = 0; i < 6; i++) {
-          const block = blocks[i];
-          if (i === 0) {
-            block.style.left = "233px";
-            block.style.top = "265px";
-          } else {
-            const blockAngle = startAngle + i * 60;
-            const rad = (blockAngle * Math.PI) / 180;
-            const x = centerX + radius * Math.sin(rad) - 329;
-            const y = centerY - radius * Math.cos(rad) - 230.5;
-            block.style.left = x + "px";
-            block.style.top = y + "px";
-          }
-        }
-      }
-
-      // Функция для плавного вращения с учетом кратчайшего пути
-      function rotateSmoothly(direction) {
-        if (isAnimating) return;
-        isAnimating = true;
-        setButtonsDisabled(true);
-
-        // Вычисляем целевой угол с учетом кратчайшего пути
-        let targetAngle;
-        if (direction === "next") {
-          currentBlock = (currentBlock + 1) % 6;
-          targetAngle = -currentBlock * 60;
-        } else {
-          // prev
-          currentBlock = (currentBlock - 1 + 6) % 6;
-          targetAngle = -currentBlock * 60;
+        // Определение типа устройства
+        function getDeviceType() {
+            const width = window.innerWidth;
+            if (width >= 1025) return 'desktop';
+            if (width >= 769) return 'tablet';
+            return 'mobile';
         }
 
-        // Вращаем якорь (теперь правильно вокруг своего центра)
-        const scale = getScaleFactor();
-        anchor.style.transform = `rotate(${targetAngle}deg) scale(${scale})`;
-
-        // Блоки вращаются по кругу
-        for (let i = 0; i < 6; i++) {
-          const block = blocks[i];
-          const blockIndex = (i - currentBlock + 6) % 6;
-          const blockAngle = startAngle + blockIndex * 60;
-          const rad = (blockAngle * Math.PI) / 180;
-          const x = centerX + radius * Math.sin(rad) - 329;
-          const y = centerY - radius * Math.cos(rad) - 230.5;
-          block.style.left = x + "px";
-          block.style.top = y + "px";
-          block.style.transform = `scale(${scale})`;
+        // Флаг анимации для предотвращения множественных нажатий
+        function setButtonsDisabled(disabled) {
+            document.querySelectorAll(".next-btn, .prev-btn, .read-btn").forEach((btn) => {
+                btn.disabled = disabled;
+            });
         }
 
-        // Разблокируем кнопки после анимации
-        setTimeout(() => {
-          isAnimating = false;
-          setButtonsDisabled(false);
-        }, 800);
-      }
-
-      // Вращение вперед
-      function next() {
-        rotateSmoothly("next");
-      }
-
-      // Вращение назад
-      function prev() {
-        rotateSmoothly("prev");
-      }
-
-      // Назначаем обработчики для всех кнопок навигации
-      document.querySelectorAll(".next-btn").forEach((btn) => {
-        btn.addEventListener("click", next);
-      });
-
-      document.querySelectorAll(".prev-btn").forEach((btn) => {
-        btn.addEventListener("click", prev);
-      });
-
-      document.querySelectorAll(".read-btn").forEach((btn, index) => {
-        btn.addEventListener("click", function () {
-          alert(`Переход к чтению блока ${index + 1}`);
-        });
-      });
-
-      // Обновление масштаба при изменении размера окна
-      function updateScale() {
-        const scale = getScaleFactor();
-        const rotation = -currentBlock * 60;
-        anchor.style.transform = `rotate(${rotation}deg) scale(${scale})`;
-
-        blocks.forEach((block) => {
-          block.style.transform = `scale(${scale})`;
-        });
-      }
-
-      // Автоматическое изменение высоты страницы в зависимости от фонового изображения
-      function updatePageHeight() {
-        const page = document.getElementById("page");
-        const bgImg = new Image();
-        bgImg.src = "fon.png";
-
-        bgImg.onload = function () {
-          const aspectRatio = bgImg.width / bgImg.height;
-          const pageWidth = page.offsetWidth || window.innerWidth;
-
-          if (pageWidth > 0) {
-            // Рассчитываем высоту на основе ширины и соотношения сторон
-            const calculatedHeight = pageWidth / aspectRatio;
-
-            // Устанавливаем минимальную высоту
-            page.style.minHeight =
-              Math.max(calculatedHeight, window.innerHeight) + "px";
-          }
-        };
-
-        bgImg.onerror = function () {
-          // Если изображение не загрузилось, используем стандартную высоту
-          page.style.minHeight = "2530px";
-        };
-      }
-
-      // Код для обработки формы обратной связи
-      document.addEventListener("DOMContentLoaded", function () {
-        const contactForm = document.getElementById("contactForm");
-        const submitBtn = document.getElementById("submitBtn");
-        const resetBtn = document.getElementById("resetBtn");
-        const formMessage = document.getElementById("formMessage");
-
-        // Валидация email
-        function validateEmail(email) {
-          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          return re.test(email);
+        // Обновление индикаторов
+        function updateIndicators() {
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentBlock);
+            });
         }
 
-        // Показать сообщение
-        function showMessage(text, type) {
-          formMessage.textContent = text;
-          formMessage.className = "message " + type;
-          formMessage.style.display = "block";
-
-          // Автоматическое скрытие сообщения через 5 секунд
-          if (type === "success" || type === "error") {
-            setTimeout(() => {
-              formMessage.style.display = "none";
-            }, 5000);
-          }
+        // Инициализация позиций блоков в зависимости от устройства
+        function arrangeBlocks() {
+            const device = getDeviceType();
+            
+            if (device === 'desktop') {
+                // ДЕСКТОП: круговое расположение
+                for (let i = 0; i < 6; i++) {
+                    const block = blocks[i];
+                    if (i === 0) {
+                        block.style.left = "233px";
+                        block.style.top = "265px";
+                        block.style.display = "block";
+                    } else {
+                        const blockAngle = startAngle + i * 60;
+                        const rad = (blockAngle * Math.PI) / 180;
+                        const x = centerX + radius * Math.sin(rad) - 329;
+                        const y = centerY - radius * Math.cos(rad) - 230.5;
+                        block.style.left = x + "px";
+                        block.style.top = y + "px";
+                        block.style.display = "block";
+                    }
+                }
+            } else {
+                // ПЛАНШЕТ/ТЕЛЕФОН: показываем только текущий блок
+                blocks.forEach((block, index) => {
+                    if (index === currentBlock) {
+                        block.classList.add('active');
+                        block.style.display = "block";
+                    } else {
+                        block.classList.remove('active');
+                        block.style.display = "none";
+                    }
+                });
+                updateIndicators();
+            }
         }
 
-        // Обработка сброса формы
-        resetBtn.addEventListener("click", function () {
-          contactForm.reset();
-          formMessage.style.display = "none";
+        // Функция для плавного вращения/переключения
+        function rotateSmoothly(direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+            setButtonsDisabled(true);
+            
+            const device = getDeviceType();
+            let targetAngle;
+
+            // Вычисляем целевой угол
+            if (direction === "next") {
+                currentBlock = (currentBlock + 1) % 6;
+                targetAngle = -currentBlock * 60;
+            } else {
+                currentBlock = (currentBlock - 1 + 6) % 6;
+                targetAngle = -currentBlock * 60;
+            }
+
+            if (device === 'desktop') {
+                // ДЕСКТОП: вращаем якорь и блоки
+                anchor.style.transform = `rotate(${targetAngle}deg)`;
+
+                for (let i = 0; i < 6; i++) {
+                    const block = blocks[i];
+                    const blockIndex = (i - currentBlock + 6) % 6;
+                    const blockAngle = startAngle + blockIndex * 60;
+                    const rad = (blockAngle * Math.PI) / 180;
+                    const x = centerX + radius * Math.sin(rad) - 329;
+                    const y = centerY - radius * Math.cos(rad) - 230.5;
+                    block.style.left = x + "px";
+                    block.style.top = y + "px";
+                }
+
+                setTimeout(() => {
+                    isAnimating = false;
+                    setButtonsDisabled(false);
+                }, 800);
+            } else {
+                // ПЛАНШЕТ/ТЕЛЕФОН: плавное переключение блоков
+                const prevBlock = blocks[(currentBlock - (direction === 'next' ? 1 : -1) + 6) % 6];
+                const nextBlock = blocks[currentBlock];
+                
+                // Скрываем предыдущий блок
+                prevBlock.classList.remove('active');
+                setTimeout(() => {
+                    prevBlock.style.display = "none";
+                    
+                    // Показываем следующий блок
+                    nextBlock.style.display = "block";
+                    setTimeout(() => {
+                        nextBlock.classList.add('active');
+                        
+                        // Вращаем якорь для планшетов/телефонов
+                        if (device === 'tablet') {
+                            anchor.style.transform = `rotate(${targetAngle}deg)`;
+                        }
+                        
+                        updateIndicators();
+                        
+                        setTimeout(() => {
+                            isAnimating = false;
+                            setButtonsDisabled(false);
+                        }, 300);
+                    }, 50);
+                }, 300);
+            }
+        }
+
+        // Вращение вперед
+        function next() {
+            rotateSmoothly("next");
+        }
+
+        // Вращение назад
+        function prev() {
+            rotateSmoothly("prev");
+        }
+
+        // Переход к конкретному блоку (для индикаторов)
+        function goToBlock(index) {
+            if (isAnimating || index === currentBlock) return;
+            
+            const device = getDeviceType();
+            const direction = index > currentBlock ? "next" : "prev";
+            const steps = Math.abs(index - currentBlock);
+            
+            function moveStep(step) {
+                if (step >= steps) return;
+                rotateSmoothly(direction);
+                setTimeout(() => moveStep(step + 1), device === 'desktop' ? 800 : 600);
+            }
+            
+            moveStep(0);
+        }
+
+        // Назначаем обработчики для всех кнопок навигации
+        document.querySelectorAll(".next-btn").forEach((btn) => {
+            btn.addEventListener("click", next);
         });
 
-        // Обработка отправки формы
-        async function handleSubmit(event) {
-          event.preventDefault();
+        document.querySelectorAll(".prev-btn").forEach((btn) => {
+            btn.addEventListener("click", prev);
+        });
 
-          const name = document.getElementById("name").value.trim();
-          const email = document.getElementById("email").value.trim();
-          const message = document.getElementById("message").value.trim();
+        document.querySelectorAll(".read-btn").forEach((btn, index) => {
+            btn.addEventListener("click", function () {
+                alert(`Переход к чтению блока ${index + 1}`);
+            });
+        });
 
-          // Валидация
-          if (!name || !email || !message) {
-            showMessage("Пожалуйста, заполните все поля", "error");
-            return;
-          }
+        // Обработчики для индикаторов
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener("click", () => goToBlock(index));
+        });
 
-          if (!validateEmail(email)) {
-            showMessage("Введите корректный email адрес", "error");
-            return;
-          }
+        // Свайп для мобильных
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            if (getDeviceType() !== 'desktop') {
+                touchStartX = e.changedTouches[0].screenX;
+            }
+        }, false);
+        
+        document.addEventListener('touchend', function(e) {
+            if (getDeviceType() !== 'desktop') {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }
+        }, false);
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            
+            if (touchEndX < touchStartX - swipeThreshold) {
+                next();
+            }
+            
+            if (touchEndX > touchStartX + swipeThreshold) {
+                prev();
+            }
+        }
 
-          // Показываем загрузку
-          showMessage("Отправка сообщения...", "loading");
-          submitBtn.disabled = true;
+        // Автоматическое изменение высоты страницы
+        function updatePageHeight() {
+            const page = document.getElementById("page");
+            const bgImg = new Image();
+            bgImg.src = "fon.png";
 
-          try {
-            // Добавляем имя в скрытое поле (Formspree не показывает его в шаблоне по умолчанию)
-            const nameField = document.createElement("input");
-            nameField.type = "hidden";
-            nameField.name = "Имя";
-            nameField.value = name;
-            contactForm.appendChild(nameField);
+            bgImg.onload = function () {
+                const aspectRatio = bgImg.width / bgImg.height;
+                const pageWidth = page.offsetWidth || window.innerWidth;
 
-            // Отправка через Formspree
-            const response = await fetch(contactForm.action, {
-              method: "POST",
-              body: new FormData(contactForm),
-              headers: {
-                Accept: "application/json",
-              },
+                if (pageWidth > 0) {
+                    const calculatedHeight = pageWidth / aspectRatio;
+                    page.style.minHeight = Math.max(calculatedHeight, window.innerHeight) + "px";
+                }
+            };
+
+            bgImg.onerror = function () {
+                page.style.minHeight = "2530px";
+            };
+        }
+
+        // Код для обработки формы обратной связи
+        document.addEventListener("DOMContentLoaded", function () {
+            const contactForm = document.getElementById("contactForm");
+            const submitBtn = document.getElementById("submitBtn");
+            const resetBtn = document.getElementById("resetBtn");
+            const formMessage = document.getElementById("formMessage");
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            function showMessage(text, type) {
+                formMessage.textContent = text;
+                formMessage.className = "message " + type;
+                formMessage.style.display = "block";
+
+                if (type === "success" || type === "error") {
+                    setTimeout(() => {
+                        formMessage.style.display = "none";
+                    }, 5000);
+                }
+            }
+
+            resetBtn.addEventListener("click", function () {
+                contactForm.reset();
+                formMessage.style.display = "none";
             });
 
-            // Удаляем временное поле
-            contactForm.removeChild(nameField);
+            async function handleSubmit(event) {
+                event.preventDefault();
 
-            if (response.ok) {
-              // Успешная отправка
-              showMessage(
-                "✅ Сообщение успешно отправлено! Я отвечу вам в ближайшее время.",
-                "success"
-              );
-              contactForm.reset();
-            } else {
-              // Ошибка от Formspree
-              showMessage(
-                "❌ Произошла ошибка при отправке. Попробуйте еще раз.",
-                "error"
-              );
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const message = document.getElementById("message").value.trim();
+
+                if (!name || !email || !message) {
+                    showMessage("Пожалуйста, заполните все поля", "error");
+                    return;
+                }
+
+                if (!validateEmail(email)) {
+                    showMessage("Введите корректный email адрес", "error");
+                    return;
+                }
+
+                showMessage("Отправка сообщения...", "loading");
+                submitBtn.disabled = true;
+
+                try {
+                    const nameField = document.createElement("input");
+                    nameField.type = "hidden";
+                    nameField.name = "Имя";
+                    nameField.value = name;
+                    contactForm.appendChild(nameField);
+
+                    const response = await fetch(contactForm.action, {
+                        method: "POST",
+                        body: new FormData(contactForm),
+                        headers: {
+                            Accept: "application/json",
+                        },
+                    });
+
+                    contactForm.removeChild(nameField);
+
+                    if (response.ok) {
+                        showMessage(
+                            "✅ Сообщение успешно отправлено! Я отвечу вам в ближайшее время.",
+                            "success"
+                        );
+                        contactForm.reset();
+                    } else {
+                        showMessage(
+                            "❌ Произошла ошибка при отправке. Попробуйте еще раз.",
+                            "error"
+                        );
+                    }
+                } catch (error) {
+                    showMessage(
+                        "❌ Ошибка сети. Пожалуйста, проверьте соединение.",
+                        "error"
+                    );
+                } finally {
+                    submitBtn.disabled = false;
+                }
             }
-          } catch (error) {
-            // Ошибка сети
-            showMessage(
-              "❌ Ошибка сети. Пожалуйста, проверьте соединение.",
-              "error"
-            );
-          } finally {
-            // Включаем кнопку обратно
-            submitBtn.disabled = false;
-          }
-        }
 
-        // Назначаем обработчики для формы
-        contactForm.addEventListener("submit", handleSubmit);
-        submitBtn.addEventListener("click", function (event) {
-          if (!contactForm.checkValidity()) {
-            contactForm.reportValidity();
-            return;
-          }
-          handleSubmit(event);
+            contactForm.addEventListener("submit", handleSubmit);
+            submitBtn.addEventListener("click", function (event) {
+                if (!contactForm.checkValidity()) {
+                    contactForm.reportValidity();
+                    return;
+                }
+                handleSubmit(event);
+            });
         });
-      });
 
-      // Инициализация
-      window.addEventListener("load", () => {
-        arrangeBlocks();
-        updateScale();
-        updatePageHeight();
-      });
+        // Инициализация
+        window.addEventListener("load", () => {
+            arrangeBlocks();
+            updatePageHeight();
+        });
 
-      // Обработка изменения размера окна
-      window.addEventListener("resize", () => {
-        updateScale();
-        updatePageHeight();
-      });
+        // Обработка изменения размера окна
+        window.addEventListener("resize", () => {
+            arrangeBlocks();
+            updatePageHeight();
+        });
     </script>
-  </body>
+</body>
 </html>
