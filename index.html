@@ -1,532 +1,544 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Сайт</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f0f0f0;
-            overflow-x: auto;
-            overflow-y: auto;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+        overflow-x: auto;
+        overflow-y: auto;
+      }
 
-        .page {
-            position: relative;
-            width: 100%;
-            max-width: 1920px;
-            min-height: 100vh;
-            background-image: url("fon.png");
-            background-size: 100% auto; /* Растягиваем по ширине */
-            background-position: top center;
-            background-repeat: no-repeat;
-            overflow: hidden;
-            margin: 0 auto;
-            /* Высота будет автоматически рассчитываться */
-        }
+      .page {
+        position: relative;
+        width: 100%;
+        max-width: 1920px;
+        min-height: 100vh;
+        background-image: url("fon.png");
+        background-size: 100% auto;
+        background-position: top center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+        margin: 0 auto;
+      }
 
-        /* Якорь - фиксированный размер в пикселях */
+      /* Якорь - вернул исходную позицию */
+      .anchor {
+        position: absolute;
+        width: 1189px;
+        height: 1189px;
+        top: -99px;
+        left: 788px;
+        transform-origin: 594.5px 594.5px; /* Центр якоря (1189/2) */
+        transition: transform 0.8s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .anchor img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        pointer-events: none;
+        object-fit: contain;
+      }
+
+      /* Блоки информации - исходные размеры и позиции */
+      .info-block {
+        position: absolute;
+        width: 658px;
+        height: 461px;
+        background-color: rgba(128, 0, 128, 0.03);
+        border: 5px solid white;
+        border-radius: 30px;
+        transition: all 0.8s ease;
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
+        z-index: 2;
+
+        /* Эффект текстуры */
+        background-image: radial-gradient(
+          circle at 50% 50%,
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 6.5px 6.5px;
+      }
+
+      /* Псевдоэлемент для дополнительных эффектов */
+      .info-block::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        background: radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 255, 255, 0.1),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 100% 50%,
+            rgba(255, 255, 255, 0.05),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 50% 100%,
+            rgba(255, 255, 255, 0.05),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 0% 50%,
+            rgba(255, 255, 255, 0.05),
+            transparent 50%
+          );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Внутренняя тень для эффекта глубины */
+      .info-block::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 30px;
+        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3),
+          inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .content {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 80px;
+        color: #333;
+        z-index: 3;
+        padding: 20px;
+        overflow: hidden;
+      }
+
+      .next-btn {
+        position: absolute;
+        top: 294px;
+        left: 24px;
+        width: 200px;
+        height: 50px;
+        background-color: rgba(102, 102, 102, 0.8);
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        z-index: 3;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled) {
+        background-color: rgba(85, 85, 85, 0.9);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .prev-btn {
+        position: absolute;
+        top: 383px;
+        left: 24px;
+        width: 200px;
+        height: 50px;
+        background-color: rgba(102, 102, 102, 0.8);
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        z-index: 3;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .prev-btn:hover:not(:disabled) {
+        background-color: rgba(85, 85, 85, 0.9);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .read-btn {
+        position: absolute;
+        top: 382px;
+        left: 279px;
+        width: 350px;
+        height: 50px;
+        background-color: rgba(119, 119, 119, 0.8);
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        z-index: 3;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .read-btn:hover:not(:disabled) {
+        background-color: rgba(100, 100, 100, 0.9);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      h2 {
+        margin-bottom: 15px;
+        color: #333;
+        font-size: 28px;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+      }
+
+      p {
+        color: #444;
+        font-size: 18px;
+        line-height: 1.5;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+      }
+
+      /* Адаптивные стили для мобильных устройств */
+      @media (max-width: 1920px) {
+        /* Масштабируем блоки и якорь пропорционально */
         .anchor {
-            position: absolute;
-            width: 1189px; /* Фиксированная ширина */
-            height: 1189px; /* Фиксированная высота */
-            top: -99px; /* Фиксированный отступ сверху */
-            left: calc(41.04% - 594.5px); /* Центрируем относительно 41.04% */
-            transform-origin: center;
-            transition: transform 0.8s ease;
-            pointer-events: none;
+          transform: scale(calc(100vw / 1920));
+          transform-origin: 594.5px 594.5px;
         }
 
-        .anchor img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            pointer-events: none;
-            object-fit: contain;
-        }
-
-        /* Блоки информации - фиксированный размер */
         .info-block {
-            position: absolute;
-            width: 658px; /* Фиксированная ширина */
-            height: 461px; /* Фиксированная высота */
-            background-color: rgba(128, 0, 128, 0.03);
-            border: 5px solid white; /* Фиксированная граница */
-            border-radius: 30px; /* Фиксированное скругление */
-            transition: all 0.8s ease;
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
+          transform: scale(calc(100vw / 1920));
+          transform-origin: 0 0;
+        }
+      }
 
-            /* Эффект текстуры */
-            background-image: radial-gradient(
-                circle at 50% 50%,
-                rgba(255, 255, 255, 0.1) 1px,
-                transparent 1px
-            );
-            background-size: 6.5px 6.5px; /* Фиксированный размер текстуры */
+      @media (max-width: 768px) {
+        .page {
+          background-size: 100% auto;
         }
 
-        /* Псевдоэлемент для дополнительных эффектов */
-        .info-block::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 25px;
-            background: radial-gradient(
-                    circle at 50% 0%,
-                    rgba(255, 255, 255, 0.1),
-                    transparent 50%
-                ),
-                radial-gradient(
-                    circle at 100% 50%,
-                    rgba(255, 255, 255, 0.05),
-                    transparent 50%
-                ),
-                radial-gradient(
-                    circle at 50% 100%,
-                    rgba(255, 255, 255, 0.05),
-                    transparent 50%
-                ),
-                radial-gradient(
-                    circle at 0% 50%,
-                    rgba(255, 255, 255, 0.05),
-                    transparent 50%
-                );
-            pointer-events: none;
-            z-index: 1;
+        /* Для мобильных уменьшаем масштаб */
+        .anchor {
+          transform: scale(calc(100vw / 1920 * 0.8));
+          transform-origin: 594.5px 594.5px;
         }
 
-        /* Внутренняя тень для эффекта глубины */
-        .info-block::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 30px;
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3),
-                inset 0 -1px 2px rgba(0, 0, 0, 0.1);
-            pointer-events: none;
-            z-index: 2;
+        .info-block {
+          transform: scale(calc(100vw / 1920 * 0.8));
+          transform-origin: 0 0;
         }
 
-        .content {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 80px;
-            color: #333;
-            z-index: 3;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        .next-btn {
-            position: absolute;
-            top: 294px;
-            left: 24px;
-            width: 200px;
-            height: 50px;
-            background-color: rgba(102, 102, 102, 0.8);
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-            z-index: 3;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .next-btn:hover:not(:disabled) {
-            background-color: rgba(85, 85, 85, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .prev-btn {
-            position: absolute;
-            top: 383px;
-            left: 24px;
-            width: 200px;
-            height: 50px;
-            background-color: rgba(102, 102, 102, 0.8);
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-            z-index: 3;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .prev-btn:hover:not(:disabled) {
-            background-color: rgba(85, 85, 85, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
+        .next-btn,
+        .prev-btn,
         .read-btn {
-            position: absolute;
-            top: 382px;
-            left: 279px;
-            width: 350px;
-            height: 50px;
-            background-color: rgba(119, 119, 119, 0.8);
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-            z-index: 3;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .read-btn:hover:not(:disabled) {
-            background-color: rgba(100, 100, 100, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
+          font-size: 14px;
         }
 
         h2 {
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 28px;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+          font-size: 20px;
         }
 
         p {
-            color: #444;
-            font-size: 18px;
-            line-height: 1.5;
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .anchor {
+          transform: scale(calc(100vw / 1920 * 0.6));
+          transform-origin: 594.5px 594.5px;
         }
 
-        /* Адаптивные стили для мобильных устройств */
-        @media (max-width: 1920px) {
-            /* Масштабируем блоки и якорь пропорционально */
-            .anchor {
-                transform: scale(calc(100vw / 1920));
-                transform-origin: top left;
-            }
-            
-            .info-block {
-                transform: scale(calc(100vw / 1920));
-                transform-origin: top left;
-            }
+        .info-block {
+          transform: scale(calc(100vw / 1920 * 0.6));
+          transform-origin: 0 0;
         }
 
-        @media (max-width: 768px) {
-            .page {
-                background-size: 100% auto;
-            }
-            
-            /* Для мобильных уменьшаем масштаб */
-            .anchor {
-                transform: scale(calc(100vw / 1920 * 0.8));
-            }
-            
-            .info-block {
-                transform: scale(calc(100vw / 1920 * 0.8));
-            }
-            
-            .next-btn, .prev-btn, .read-btn {
-                font-size: 14px;
-            }
-            
-            h2 {
-                font-size: 20px;
-            }
-            
-            p {
-                font-size: 16px;
-            }
+        .next-btn,
+        .prev-btn,
+        .read-btn {
+          font-size: 12px;
         }
 
-        @media (max-width: 480px) {
-            .anchor {
-                transform: scale(calc(100vw / 1920 * 0.6));
-            }
-            
-            .info-block {
-                transform: scale(calc(100vw / 1920 * 0.6));
-            }
-            
-            .next-btn, .prev-btn, .read-btn {
-                font-size: 12px;
-            }
-            
-            h2 {
-                font-size: 18px;
-            }
-            
-            p {
-                font-size: 14px;
-            }
+        h2 {
+          font-size: 18px;
         }
+
+        p {
+          font-size: 14px;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="page" id="page">
-        <!-- Якорь -->
-        <div class="anchor" id="anchor">
-            <img src="outside.png" alt="Якорь" width="1189" height="1189" />
-        </div>
+      <!-- Якорь -->
+      <div class="anchor" id="anchor">
+        <img src="outside.png" alt="Якорь" width="1189" height="1189" />
+      </div>
 
-        <!-- 6 блоков информации -->
-        <div class="info-block" id="block1" style="top: 265px; left: 233px">
-            <div class="content">
-                <h2>Блок 1</h2>
-                <p>
-                    Текст блока 1. Это пример текста для демонстрации эффекта матового
-                    стекла.
-                </p>
-            </div>
-            <button class="next-btn">Далее</button>
-            <button class="prev-btn">Назад</button>
-            <button class="read-btn">Перейти к чтению</button>
+      <!-- 6 блоков информации -->
+      <div class="info-block" id="block1" style="top: 265px; left: 233px">
+        <div class="content">
+          <h2>Блок 1</h2>
+          <p>
+            Текст блока 1. Это пример текста для демонстрации эффекта матового
+            стекла.
+          </p>
         </div>
+        <button class="next-btn">Далее</button>
+        <button class="prev-btn">Назад</button>
+        <button class="read-btn">Перейти к чтению</button>
+      </div>
 
-        <div class="info-block" id="block2">
-            <div class="content">
-                <h2>Блок 2</h2>
-                <p>Текст блока 2. Эффект матового стекла с градиентом и текстурой.</p>
-            </div>
-            <button class="next-btn">Далее</button>
-            <button class="prev-btn">Назад</button>
-            <button class="read-btn">Перейти к чтению</button>
+      <div class="info-block" id="block2">
+        <div class="content">
+          <h2>Блок 2</h2>
+          <p>Текст блока 2. Эффект матового стекла с градиентом и текстурой.</p>
         </div>
+        <button class="next-btn">Далее</button>
+        <button class="prev-btn">Назад</button>
+        <button class="read-btn">Перейти к чтению</button>
+      </div>
 
-        <div class="info-block" id="block3">
-            <div class="content">
-                <h2>Блок 3</h2>
-                <p>Текст блока 3. Прозрачность и размытие создают глубину.</p>
-            </div>
-            <button class="next-btn">Далее</button>
-            <button class="prev-btn">Назад</button>
-            <button class="read-btn">Перейти к чтению</button>
+      <div class="info-block" id="block3">
+        <div class="content">
+          <h2>Блок 3</h2>
+          <p>Текст блока 3. Прозрачность и размытие создают глубину.</p>
         </div>
+        <button class="next-btn">Далее</button>
+        <button class="prev-btn">Назад</button>
+        <button class="read-btn">Перейти к чтению</button>
+      </div>
 
-        <div class="info-block" id="block4">
-            <div class="content">
-                <h2>Блок 4</h2>
-                <p>Текст блока 4. Белая граница подчеркивает форму.</p>
-            </div>
-            <button class="next-btn">Далее</button>
-            <button class="prev-btn">Назад</button>
-            <button class="read-btn">Перейти к чтению</button>
+      <div class="info-block" id="block4">
+        <div class="content">
+          <h2>Блок 4</h2>
+          <p>Текст блока 4. Белая граница подчеркивает форму.</p>
         </div>
+        <button class="next-btn">Далее</button>
+        <button class="prev-btn">Назад</button>
+        <button class="read-btn">Перейти к чтению</button>
+      </div>
 
-        <div class="info-block" id="block5">
-            <div class="content">
-                <h2>Блок 5</h2>
-                <p>Текст блока 5. Скругленные углы и текстура.</p>
-            </div>
-            <button class="next-btn">Далее</button>
-            <button class="prev-btn">Назад</button>
-            <button class="read-btn">Перейти к чтению</button>
+      <div class="info-block" id="block5">
+        <div class="content">
+          <h2>Блок 5</h2>
+          <p>Текст блока 5. Скругленные углы и текстура.</p>
         </div>
+        <button class="next-btn">Далее</button>
+        <button class="prev-btn">Назад</button>
+        <button class="read-btn">Перейти к чтению</button>
+      </div>
 
-        <div class="info-block" id="block6">
-            <div class="content">
-                <h2>Блок 6</h2>
-                <p>Текст блока 6. Завершающий блок с эффектом стекла.</p>
-            </div>
-            <button class="next-btn">Далее</button>
-            <button class="prev-btn">Назад</button>
-            <button class="read-btn">Перейти к чтению</button>
+      <div class="info-block" id="block6">
+        <div class="content">
+          <h2>Блок 6</h2>
+          <p>Текст блока 6. Завершающий блок с эффектом стекла.</p>
         </div>
+        <button class="next-btn">Далее</button>
+        <button class="prev-btn">Назад</button>
+        <button class="read-btn">Перейти к чтению</button>
+      </div>
     </div>
 
     <script>
-        let currentBlock = 0;
-        let isAnimating = false;
-        const anchor = document.getElementById("anchor");
-        const blocks = document.querySelectorAll(".info-block");
+      let currentBlock = 0;
+      let isAnimating = false;
+      const anchor = document.getElementById("anchor");
+      const blocks = document.querySelectorAll(".info-block");
 
-        // Центр якоря (исходные координаты в пикселях)
-        const centerX = 788 + 594.5;
-        const centerY = -99 + 594.5;
+      // Центр якоря (исходные координаты в пикселях)
+      const centerX = 788 + 594.5;
+      const centerY = -99 + 594.5;
 
-        // Позиция блока 1 в пикселях
-        const block1X = 233 + 329;
-        const block1Y = 265 + 230.5;
+      // Позиция блока 1 в пикселях
+      const block1X = 233 + 329;
+      const block1Y = 265 + 230.5;
 
-        // Рассчитываем угол и радиус для блока 1
-        const dx = block1X - centerX;
-        const dy = block1Y - centerY;
-        const radius = Math.sqrt(dx * dx + dy * dy);
-        const startAngle = (Math.atan2(dx, -dy) * 180) / Math.PI;
+      // Рассчитываем угол и радиус для блока 1
+      const dx = block1X - centerX;
+      const dy = block1Y - centerY;
+      const radius = Math.sqrt(dx * dx + dy * dy);
+      const startAngle = (Math.atan2(dx, -dy) * 180) / Math.PI;
 
-        // Флаг анимации для предотвращения множественных нажатий
-        function setButtonsDisabled(disabled) {
-            document.querySelectorAll("button").forEach((btn) => {
-                if (!btn.classList.contains("read-btn")) {
-                    btn.disabled = disabled;
-                }
-            });
-        }
-
-        // Функция для расчета коэффициента масштабирования
-        function getScaleFactor() {
-            const pageWidth = window.innerWidth;
-            return Math.min(pageWidth / 1920, 1);
-        }
-
-        // Инициализация позиций блоков
-        function arrangeBlocks() {
-            for (let i = 0; i < 6; i++) {
-                const block = blocks[i];
-                if (i === 0) {
-                    block.style.left = "233px";
-                    block.style.top = "265px";
-                } else {
-                    const blockAngle = startAngle + i * 60;
-                    const rad = (blockAngle * Math.PI) / 180;
-                    const x = centerX + radius * Math.sin(rad) - 329;
-                    const y = centerY - radius * Math.cos(rad) - 230.5;
-                    block.style.left = x + "px";
-                    block.style.top = y + "px";
-                }
-            }
-        }
-
-        // Функция для плавного вращения с учетом кратчайшего пути
-        function rotateSmoothly(direction) {
-            if (isAnimating) return;
-            isAnimating = true;
-            setButtonsDisabled(true);
-
-            // Вычисляем целевой угол с учетом кратчайшего пути
-            let targetAngle;
-            if (direction === "next") {
-                currentBlock = (currentBlock + 1) % 6;
-                targetAngle = -currentBlock * 60;
-            } else {
-                // prev
-                currentBlock = (currentBlock - 1 + 6) % 6;
-                targetAngle = -currentBlock * 60;
-            }
-
-            // Вращаем якорь
-            anchor.style.transform = `rotate(${targetAngle}deg) scale(${getScaleFactor()})`;
-
-            // Блоки вращаются по кругу
-            for (let i = 0; i < 6; i++) {
-                const block = blocks[i];
-                const blockIndex = (i - currentBlock + 6) % 6;
-                const blockAngle = startAngle + blockIndex * 60;
-                const rad = (blockAngle * Math.PI) / 180;
-                const x = centerX + radius * Math.sin(rad) - 329;
-                const y = centerY - radius * Math.cos(rad) - 230.5;
-                block.style.left = x + "px";
-                block.style.top = y + "px";
-                block.style.transform = `scale(${getScaleFactor()})`;
-            }
-
-            // Разблокируем кнопки после анимации
-            setTimeout(() => {
-                isAnimating = false;
-                setButtonsDisabled(false);
-            }, 800);
-        }
-
-        // Вращение вперед
-        function next() {
-            rotateSmoothly("next");
-        }
-
-        // Вращение назад
-        function prev() {
-            rotateSmoothly("prev");
-        }
-
-        // Назначаем обработчики для всех кнопок
-        document.querySelectorAll(".next-btn").forEach((btn) => {
-            btn.addEventListener("click", next);
+      // Флаг анимации для предотвращения множественных нажатий
+      function setButtonsDisabled(disabled) {
+        document.querySelectorAll("button").forEach((btn) => {
+          if (!btn.classList.contains("read-btn")) {
+            btn.disabled = disabled;
+          }
         });
+      }
 
-        document.querySelectorAll(".prev-btn").forEach((btn) => {
-            btn.addEventListener("click", prev);
-        });
+      // Функция для расчета коэффициента масштабирования
+      function getScaleFactor() {
+        const pageWidth = window.innerWidth;
+        return Math.min(pageWidth / 1920, 1);
+      }
 
-        document.querySelectorAll(".read-btn").forEach((btn, index) => {
-            btn.addEventListener("click", function () {
-                alert(`Переход к чтению блока ${index + 1}`);
-            });
-        });
+      // Инициализация позиций блоков
+      function arrangeBlocks() {
+        for (let i = 0; i < 6; i++) {
+          const block = blocks[i];
+          if (i === 0) {
+            block.style.left = "233px";
+            block.style.top = "265px";
+          } else {
+            const blockAngle = startAngle + i * 60;
+            const rad = (blockAngle * Math.PI) / 180;
+            const x = centerX + radius * Math.sin(rad) - 329;
+            const y = centerY - radius * Math.cos(rad) - 230.5;
+            block.style.left = x + "px";
+            block.style.top = y + "px";
+          }
+        }
+      }
 
-        // Обновление масштаба при изменении размера окна
-        function updateScale() {
-            const scale = getScaleFactor();
-            anchor.style.transform = `rotate(${-currentBlock * 60}deg) scale(${scale})`;
-            
-            blocks.forEach((block) => {
-                block.style.transform = `scale(${scale})`;
-            });
+      // Функция для плавного вращения с учетом кратчайшего пути
+      function rotateSmoothly(direction) {
+        if (isAnimating) return;
+        isAnimating = true;
+        setButtonsDisabled(true);
+
+        // Вычисляем целевой угол с учетом кратчайшего пути
+        let targetAngle;
+        if (direction === "next") {
+          currentBlock = (currentBlock + 1) % 6;
+          targetAngle = -currentBlock * 60;
+        } else {
+          // prev
+          currentBlock = (currentBlock - 1 + 6) % 6;
+          targetAngle = -currentBlock * 60;
         }
 
-        // Автоматическое изменение высоты страницы в зависимости от фонового изображения
-        function updatePageHeight() {
-            const page = document.getElementById('page');
-            const bgImg = new Image();
-            bgImg.src = "fon.png";
-            
-            bgImg.onload = function() {
-                const aspectRatio = bgImg.width / bgImg.height;
-                const pageWidth = page.offsetWidth;
-                
-                if (pageWidth > 0) {
-                    // Рассчитываем высоту на основе ширины и соотношения сторон
-                    const calculatedHeight = pageWidth / aspectRatio;
-                    
-                    // Устанавливаем минимальную высоту
-                    page.style.minHeight = Math.max(calculatedHeight, window.innerHeight) + 'px';
-                }
-            };
-            
-            bgImg.onerror = function() {
-                // Если изображение не загрузилось, используем стандартную высоту
-                page.style.minHeight = '2530px';
-            };
+        // Вращаем якорь (теперь правильно вокруг своего центра)
+        const scale = getScaleFactor();
+        anchor.style.transform = `rotate(${targetAngle}deg) scale(${scale})`;
+
+        // Блоки вращаются по кругу
+        for (let i = 0; i < 6; i++) {
+          const block = blocks[i];
+          const blockIndex = (i - currentBlock + 6) % 6;
+          const blockAngle = startAngle + blockIndex * 60;
+          const rad = (blockAngle * Math.PI) / 180;
+          const x = centerX + radius * Math.sin(rad) - 329;
+          const y = centerY - radius * Math.cos(rad) - 230.5;
+          block.style.left = x + "px";
+          block.style.top = y + "px";
+          block.style.transform = `scale(${scale})`;
         }
 
-        // Инициализация
-        window.addEventListener("load", () => {
-            arrangeBlocks();
-            updateScale();
-            updatePageHeight();
-        });
+        // Разблокируем кнопки после анимации
+        setTimeout(() => {
+          isAnimating = false;
+          setButtonsDisabled(false);
+        }, 800);
+      }
 
-        // Обработка изменения размера окна
-        window.addEventListener("resize", () => {
-            updateScale();
-            updatePageHeight();
+      // Вращение вперед
+      function next() {
+        rotateSmoothly("next");
+      }
+
+      // Вращение назад
+      function prev() {
+        rotateSmoothly("prev");
+      }
+
+      // Назначаем обработчики для всех кнопок
+      document.querySelectorAll(".next-btn").forEach((btn) => {
+        btn.addEventListener("click", next);
+      });
+
+      document.querySelectorAll(".prev-btn").forEach((btn) => {
+        btn.addEventListener("click", prev);
+      });
+
+      document.querySelectorAll(".read-btn").forEach((btn, index) => {
+        btn.addEventListener("click", function () {
+          alert(`Переход к чтению блока ${index + 1}`);
         });
+      });
+
+      // Обновление масштаба при изменении размера окна
+      function updateScale() {
+        const scale = getScaleFactor();
+        const rotation = -currentBlock * 60;
+        anchor.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+
+        blocks.forEach((block) => {
+          block.style.transform = `scale(${scale})`;
+        });
+      }
+
+      // Автоматическое изменение высоты страницы в зависимости от фонового изображения
+      function updatePageHeight() {
+        const page = document.getElementById("page");
+        const bgImg = new Image();
+        bgImg.src = "fon.png";
+
+        bgImg.onload = function () {
+          const aspectRatio = bgImg.width / bgImg.height;
+          const pageWidth = page.offsetWidth || window.innerWidth;
+
+          if (pageWidth > 0) {
+            // Рассчитываем высоту на основе ширины и соотношения сторон
+            const calculatedHeight = pageWidth / aspectRatio;
+
+            // Устанавливаем минимальную высоту
+            page.style.minHeight =
+              Math.max(calculatedHeight, window.innerHeight) + "px";
+          }
+        };
+
+        bgImg.onerror = function () {
+          // Если изображение не загрузилось, используем стандартную высоту
+          page.style.minHeight = "2530px";
+        };
+      }
+
+      // Инициализация
+      window.addEventListener("load", () => {
+        arrangeBlocks();
+        updateScale();
+        updatePageHeight();
+      });
+
+      // Обработка изменения размера окна
+      window.addEventListener("resize", () => {
+        updateScale();
+        updatePageHeight();
+      });
     </script>
-</body>
+  </body>
 </html>
