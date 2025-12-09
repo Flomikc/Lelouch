@@ -52,7 +52,48 @@
             z-index: 1;
         }
 
-        .anchor img {
+        /* Общие стили для всех слоев якоря */
+        .anchor-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .anchor-layer img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+            object-fit: contain;
+        }
+
+        /* Слой с outside.png - вращается с якорем */
+        .outside-layer {
+            z-index: 1;
+        }
+
+        /* Слой с inside.png - вращается в обратную сторону */
+        .inside-layer {
+            z-index: 2;
+            transform: rotate(0deg);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Аватар - статичный слой, позиционируется отдельно */
+        .avatar-container {
+            position: absolute;
+            width: 1189px;
+            height: 1189px;
+            top: -99px;
+            left: 788px;
+            pointer-events: none;
+            z-index: 3; /* Выше всех слоев якоря */
+        }
+
+        .avatar-container img {
             width: 100%;
             height: 100%;
             display: block;
@@ -633,6 +674,10 @@
                 transform: scale(calc(100vw / 1920));
             }
             
+            .avatar-container {
+                transform: scale(calc(100vw / 1920));
+            }
+            
             .info-block {
                 transform: scale(calc(100vw / 1920));
             }
@@ -647,6 +692,10 @@
             .anchor {
                 transform: scale(0.8);
                 transform-origin: 594.5px 594.5px;
+            }
+            
+            .avatar-container {
+                transform: scale(0.8);
             }
             
             .info-block {
@@ -693,6 +742,16 @@
                 left: 0;
                 margin: 0 auto 40px;
                 transform-origin: center;
+            }
+            
+            .avatar-container {
+                position: absolute;
+                width: 600px;
+                height: 600px;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 3;
             }
             
             .info-block {
@@ -764,6 +823,16 @@
                 left: 0;
                 margin: 0 auto 30px;
                 transform-origin: center;
+            }
+            
+            .avatar-container {
+                position: absolute;
+                width: 500px;
+                height: 500px;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 3;
             }
             
             .info-block {
@@ -871,6 +940,16 @@
                 transform: translateX(-50%) !important;
                 margin: 0 auto 20px !important;
                 transform-origin: center !important;
+            }
+            
+            .avatar-container {
+                position: absolute !important;
+                width: 300px !important;
+                height: 300px !important;
+                top: 40px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                z-index: 3 !important;
             }
             
             /* Блоки - увеличиваем в 2 раза и центрируем */
@@ -998,6 +1077,11 @@
         /* 6. ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 360px) */
         @media (max-width: 360px) {
             .anchor {
+                width: 250px !important;
+                height: 250px !important;
+            }
+            
+            .avatar-container {
                 width: 250px !important;
                 height: 250px !important;
             }
@@ -1244,7 +1328,17 @@
     <div class="page" id="page">
         <!-- Якорь -->
         <div class="anchor" id="anchor">
-            <img src="outside.png" alt="Якорь" width="1189" height="1189" />
+            <div class="anchor-layer outside-layer">
+                <img src="outside.png" alt="Внешняя часть якоря" width="1189" height="1189" />
+            </div>
+            <div class="anchor-layer inside-layer">
+                <img src="inside.png" alt="Внутренняя часть якоря" width="1189" height="1189" />
+            </div>
+        </div>
+        
+        <!-- Аватар - отдельный статичный контейнер -->
+        <div class="avatar-container">
+            <img src="avatar.png" alt="Аватар" width="1189" height="1189" />
         </div>
 
         <!-- Overlay изображение -->
@@ -1557,73 +1651,86 @@
             }
         }
 
-        // Функция для плавного вращения/переключения
-        function rotateSmoothly(direction) {
-            if (isAnimating) return;
-            isAnimating = true;
-            setButtonsDisabled(true);
+// Функция для плавного вращения/переключения
+function rotateSmoothly(direction) {
+    if (isAnimating) return;
+    isAnimating = true;
+    setButtonsDisabled(true);
+    
+    const device = getDeviceType();
+    let targetAngle;
+
+    // Вычисляем целевой угол
+    if (direction === "next") {
+        currentBlock = (currentBlock + 1) % 6;
+        targetAngle = -currentBlock * 60;
+    } else {
+        currentBlock = (currentBlock - 1 + 6) % 6;
+        targetAngle = -currentBlock * 60;
+    }
+
+    if (device === 'desktop') {
+        // ДЕСКТОП: вращаем якорь и inside-layer в обратную сторону
+        anchor.style.transform = `rotate(${targetAngle}deg)`;
+        
+        // Вращаем inside-layer в обратную сторону с перевесом
+        const insideLayer = document.querySelector('.inside-layer');
+        if (insideLayer) {
+            // Вращаем в 1.5 раза быстрее в обратную сторону
+            insideLayer.style.transform = `rotate(${-targetAngle * 1.5}deg)`;
+        }
+
+        for (let i = 0; i < 6; i++) {
+            const block = blocks[i];
+            const blockIndex = (i - currentBlock + 6) % 6;
+            const blockAngle = startAngle + blockIndex * 60;
+            const rad = (blockAngle * Math.PI) / 180;
+            const x = centerX + radius * Math.sin(rad) - 329;
+            const y = centerY - radius * Math.cos(rad) - 230.5;
+            block.style.left = x + "px";
+            block.style.top = y + "px";
+        }
+
+        setTimeout(() => {
+            isAnimating = false;
+            setButtonsDisabled(false);
+        }, 800);
+    } else {
+        // ПЛАНШЕТ/ТЕЛЕФОН: плавное переключение блоков
+        const prevBlock = blocks[(currentBlock - (direction === 'next' ? 1 : -1) + 6) % 6];
+        const nextBlock = blocks[currentBlock];
+        
+        // Скрываем предыдущий блок
+        prevBlock.classList.remove('active');
+        setTimeout(() => {
+            prevBlock.style.display = "none";
             
-            const device = getDeviceType();
-            let targetAngle;
-
-            // Вычисляем целевой угол
-            if (direction === "next") {
-                currentBlock = (currentBlock + 1) % 6;
-                targetAngle = -currentBlock * 60;
-            } else {
-                currentBlock = (currentBlock - 1 + 6) % 6;
-                targetAngle = -currentBlock * 60;
-            }
-
-            if (device === 'desktop') {
-                // ДЕСКТОП: вращаем якорь и блоки
-                anchor.style.transform = `rotate(${targetAngle}deg)`;
-
-                for (let i = 0; i < 6; i++) {
-                    const block = blocks[i];
-                    const blockIndex = (i - currentBlock + 6) % 6;
-                    const blockAngle = startAngle + blockIndex * 60;
-                    const rad = (blockAngle * Math.PI) / 180;
-                    const x = centerX + radius * Math.sin(rad) - 329;
-                    const y = centerY - radius * Math.cos(rad) - 230.5;
-                    block.style.left = x + "px";
-                    block.style.top = y + "px";
+            // Показываем следующий блок
+            nextBlock.style.display = "block";
+            setTimeout(() => {
+                nextBlock.classList.add('active');
+                
+                // Вращаем якорь для планшетов/телефонов
+                if (device === 'tablet') {
+                    anchor.style.transform = `rotate(${targetAngle}deg)`;
+                    
+                    // Вращаем inside-layer в обратную сторону с перевесом
+                    const insideLayer = document.querySelector('.inside-layer');
+                    if (insideLayer) {
+                        insideLayer.style.transform = `rotate(${-targetAngle * 1.5}deg)`;
+                    }
                 }
-
+                
+                updateIndicators();
+                
                 setTimeout(() => {
                     isAnimating = false;
                     setButtonsDisabled(false);
-                }, 800);
-            } else {
-                // ПЛАНШЕТ/ТЕЛЕФОН: плавное переключение блоков
-                const prevBlock = blocks[(currentBlock - (direction === 'next' ? 1 : -1) + 6) % 6];
-                const nextBlock = blocks[currentBlock];
-                
-                // Скрываем предыдущий блок
-                prevBlock.classList.remove('active');
-                setTimeout(() => {
-                    prevBlock.style.display = "none";
-                    
-                    // Показываем следующий блок
-                    nextBlock.style.display = "block";
-                    setTimeout(() => {
-                        nextBlock.classList.add('active');
-                        
-                        // Вращаем якорь для планшетов/телефонов
-                        if (device === 'tablet') {
-                            anchor.style.transform = `rotate(${targetAngle}deg)`;
-                        }
-                        
-                        updateIndicators();
-                        
-                        setTimeout(() => {
-                            isAnimating = false;
-                            setButtonsDisabled(false);
-                        }, 300);
-                    }, 50);
                 }, 300);
-            }
-        }
+            }, 50);
+        }, 300);
+    }
+}
 
         // Вращение вперед
         function next() {
