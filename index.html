@@ -16,7 +16,7 @@
             padding: 0;
             width: 100%;
             min-height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #0a0a1a;
             overflow-x: auto;
             overflow-y: auto;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -29,14 +29,15 @@
             position: relative;
             width: 100%;
             max-width: 1920px;
-            min-height: 100vh;
+            min-height: 2531px; /* Высота fon.png */
             background-image: url("fon.png");
-            background-size: 100% auto;
+            background-size: 100% auto; /* Показываем фон полностью */
             background-position: top center;
             background-repeat: no-repeat;
-            overflow: hidden;
+            overflow: visible;
             margin: 0 auto;
             flex: 1;
+            background-color: #0a0a1a; /* Установлен цвет подложки */
         }
 
         /* Якорь - фиксированные размеры для ПК */
@@ -101,13 +102,13 @@
             object-fit: contain;
         }
 
-        /* Блоки информации */
+        /* Блоки информации - ОБНОВЛЕННЫЕ ЦВЕТА */
         .info-block {
             position: absolute;
             width: 658px;
             height: 461px;
-            background-color: rgba(128, 0, 128, 0.03);
-            border: 5px solid white;
+            background-color: rgba(88, 8, 167, 0.15); /* Светлее чем у подвала */
+            border: 5px solid rgba(255, 255, 255, 0.8);
             border-radius: 30px;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(7px);
@@ -132,22 +133,22 @@
             border-radius: 25px;
             background: radial-gradient(
                     circle at 50% 0%,
-                    rgba(255, 255, 255, 0.1),
+                    rgba(88, 8, 167, 0.25), /* Более светлый оттенок */
                     transparent 50%
                 ),
                 radial-gradient(
                     circle at 100% 50%,
-                    rgba(255, 255, 255, 0.05),
+                    rgba(108, 38, 187, 0.2), /* Более светлый оттенок */
                     transparent 50%
                 ),
                 radial-gradient(
                     circle at 50% 100%,
-                    rgba(255, 255, 255, 0.05),
+                    rgba(108, 38, 187, 0.2), /* Более светлый оттенок */
                     transparent 50%
                 ),
                 radial-gradient(
                     circle at 0% 50%,
-                    rgba(255, 255, 255, 0.05),
+                    rgba(108, 38, 187, 0.2), /* Более светлый оттенок */
                     transparent 50%
                 );
             pointer-events: none;
@@ -174,10 +175,25 @@
             left: 20px;
             right: 20px;
             bottom: 80px;
-            color: #333;
+            color: white; /* Белый текст без теней */
             z-index: 3;
             padding: 20px;
             overflow: hidden;
+            text-shadow: none; /* Убраны тени */
+        }
+
+        .content h2 {
+            color: white; /* Белый заголовок */
+            text-shadow: none; /* Убраны тени */
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            color: white; /* Белый текст */
+            text-shadow: none; /* Убраны тени */
+            font-size: 18px;
+            line-height: 1.5;
         }
 
         .next-btn {
@@ -186,7 +202,7 @@
             left: 24px;
             width: 200px;
             height: 50px;
-            background-color: rgba(102, 102, 102, 0.8);
+            background-color: rgba(88, 8, 167, 0.9); /* Темнее чем у блока */
             color: white;
             border: none;
             cursor: pointer;
@@ -198,9 +214,9 @@
         }
 
         .next-btn:hover:not(:disabled) {
-            background-color: rgba(85, 85, 85, 0.9);
+            background-color: rgba(108, 38, 187, 0.95); /* Более светлый оттенок */
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(88, 8, 167, 0.3); /* Обновлен цвет тени */
         }
 
         .prev-btn {
@@ -209,7 +225,7 @@
             left: 24px;
             width: 200px;
             height: 50px;
-            background-color: rgba(102, 102, 102, 0.8);
+            background-color: rgba(88, 8, 167, 0.9); /* Темнее чем у блока */
             color: white;
             border: none;
             cursor: pointer;
@@ -221,9 +237,9 @@
         }
 
         .prev-btn:hover:not(:disabled) {
-            background-color: rgba(85, 85, 85, 0.9);
+            background-color: rgba(108, 38, 187, 0.95); /* Более светлый оттенок */
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(88, 8, 167, 0.3); /* Обновлен цвет тени */
         }
 
         .read-btn {
@@ -232,7 +248,7 @@
             left: 279px;
             width: 350px;
             height: 50px;
-            background-color: rgba(119, 119, 119, 0.8);
+            background-color: rgba(88, 8, 167, 0.9); /* Темнее чем у блока */
             color: white;
             border: none;
             cursor: pointer;
@@ -244,9 +260,9 @@
         }
 
         .read-btn:hover:not(:disabled) {
-            background-color: rgba(100, 100, 100, 0.9);
+            background-color: rgba(108, 38, 187, 0.95); /* Более светлый оттенок */
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(88, 8, 167, 0.3); /* Обновлен цвет тени */
         }
 
         button:disabled {
@@ -349,6 +365,7 @@
             margin-bottom: 15px;
             text-align: center; /* Центрируем заголовки */
             line-height: 1.3;
+            text-shadow: none; /* Убраны тени */
         }
 
         .text-content p {
@@ -358,6 +375,7 @@
             margin-bottom: 15px;
             flex-grow: 1;
             overflow-y: auto;
+            text-shadow: none; /* Убраны тени */
         }
 
         /* Кнопки внутри текстового блока */
@@ -371,7 +389,7 @@
 
         .learn-more-btn {
             padding: 12px 30px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(88, 8, 167, 0.9) 0%, rgba(108, 38, 187, 0.9) 100%); /* Обновлен цвет */
             color: white;
             border: none;
             border-radius: 8px;
@@ -385,7 +403,7 @@
 
         .learn-more-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 4px 15px rgba(88, 8, 167, 0.5); /* Обновлен цвет тени */
         }
 
         .nav-buttons {
@@ -395,9 +413,9 @@
 
         .nav-btn {
             padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(88, 8, 167, 0.3); /* Обновлен цвет */
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(108, 38, 187, 0.5); /* Более светлый оттенок */
             border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
@@ -408,7 +426,7 @@
         }
 
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(108, 38, 187, 0.4); /* Более светлый оттенок */
             transform: translateY(-2px);
         }
 
@@ -502,26 +520,14 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
-        h2 {
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 28px;
-        }
-
-        p {
-            color: #444;
-            font-size: 18px;
-            line-height: 1.5;
-        }
-
         /* =================== КОМБИНИРОВАННЫЕ НОВЫЕ СЕКЦИИ =================== */
         .content-sections {
             position: relative;
             width: 100%;
             background: linear-gradient(to bottom, #0a0a1a, #1a1a2e);
-            padding: 100px 0;
+            padding: 100px 0 0 0; /* ИЗМЕНЕНО: убрали верхний отступ */
             z-index: 20;
-            margin-top: 2500px; /* Отступ от галереи */
+            margin-top: 0; /* Изменено с 2500px на 0 */
         }
 
         .section-container {
@@ -534,10 +540,10 @@
             max-width: 1200px;
             margin: 0 auto 100px;
             padding: 60px 40px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(88, 8, 167, 0.15); /* Светлее чем у подвала, как у блоков информации */
             border-radius: 25px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2); /* Желтая граница для Лелуша */
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
@@ -550,11 +556,11 @@
         .section-title {
             text-align: center;
             font-size: 2.8rem;
-            color: #fff;
+            color: white; /* Белый текст */
             margin-bottom: 50px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             position: relative;
             padding-bottom: 20px;
+            text-shadow: none; /* Убраны тени */
         }
 
         .section-title::after {
@@ -565,19 +571,20 @@
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background: linear-gradient(90deg, #ff9f43, #ee5a24);
+            background: linear-gradient(90deg, #FFD700, #FFA500); /* Желтый градиент Лелуша */
             border-radius: 2px;
         }
 
         .section-content {
-            color: #e0e0e0;
+            color: white; /* Белый текст */
             font-size: 18px;
             line-height: 1.8;
+            text-shadow: none; /* Убраны тени */
         }
 
-        /* 1. Сеттинг - ВЗЯТ ИЗ ВАРИАНТА 2 (более динамичный) */
+        /* 1. Сеттинг - ВЕРНУЛИ ЖЕЛТЫЕ АКЦЕНТЫ */
         .setting-section {
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(10, 10, 26, 0.9));
+            background: linear-gradient(135deg, rgba(88, 8, 167, 0.15), rgba(26, 26, 46, 0.9));
         }
 
         .setting-block {
@@ -585,10 +592,10 @@
             align-items: center;
             gap: 60px;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(88, 8, 167, 0.1); /* Светлее */
             border-radius: 20px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2); /* Желтая граница */
         }
 
         .setting-text {
@@ -597,21 +604,22 @@
 
         .setting-text h3 {
             font-size: 2.2rem;
-            color: #ff9f43; /* Яркий акцент из варианта 2 */
+            color: #FFD700; /* Желтый цвет Лелуша */
             margin-bottom: 20px;
         }
 
         .setting-text p {
-            color: #ddd;
+            color: white; /* Белый текст */
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 15px;
+            text-shadow: none; /* Убраны тени */
         }
 
         .setting-bg {
             flex: 1;
             height: 400px;
-            background: linear-gradient(45deg, rgba(255, 159, 67, 0.1), rgba(238, 90, 36, 0.1));
+            background: linear-gradient(45deg, rgba(88, 8, 167, 0.15), rgba(255, 215, 0, 0.1)); /* Добавили желтый */
             border-radius: 15px;
             position: relative;
             overflow: hidden;
@@ -622,8 +630,8 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 159, 67, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 70%, rgba(238, 90, 36, 0.2) 0%, transparent 50%);
+            background: radial-gradient(circle at 30% 30%, rgba(88, 8, 167, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(255, 215, 0, 0.2) 0%, transparent 50%); /* Желтый акцент */
             animation: rotate 20s linear infinite;
         }
 
@@ -632,9 +640,9 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 2. Персонаж - КОМБИНАЦИЯ: структура из 1, интерактивность из 2 */
+        /* 2. Персонаж - ЖЕЛТЫЕ АКЦЕНТЫ */
         .character-section {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            background: linear-gradient(135deg, rgba(88, 8, 167, 0.15), rgba(108, 38, 187, 0.1));
         }
 
         .character-block {
@@ -645,31 +653,32 @@
         }
 
         .character-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(88, 8, 167, 0.1); /* Светлее */
             border-radius: 15px;
             padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2); /* Желтая граница */
             transition: transform 0.3s ease, background 0.3s ease;
-            border-top: 4px solid #667eea; /* Из варианта 1 */
+            border-top: 4px solid #FFD700; /* Желтый акцент Лелуша */
         }
 
         .character-card:hover {
-            transform: translateY(-10px); /* Из варианта 2 */
-            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-10px);
+            background: rgba(88, 8, 167, 0.15); /* Светлее */
         }
 
         .character-card h3 {
-            color: #fff; /* Из варианта 1 */
+            color: white; /* Белый текст */
             font-size: 20px;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: none; /* Убраны тени */
         }
 
         .character-card h3::before {
             content: '★';
-            color: #ff9f43; /* Из варианта 2 */
+            color: #FFD700; /* Желтый цвет Лелуша */
         }
 
         .character-card ul {
@@ -681,14 +690,15 @@
             margin-bottom: 10px;
             padding-left: 20px;
             position: relative;
-            color: #e0e0e0;
+            color: white; /* Белый текст */
+            text-shadow: none; /* Убраны тени */
         }
 
         .character-card li::before {
             content: '→';
             position: absolute;
             left: 0;
-            color: #ff9f43; /* Из варианта 2 */
+            color: #FFD700; /* Желтый цвет Лелуша */
         }
 
         .character-stats {
@@ -699,12 +709,12 @@
         }
 
         .stat-item {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(88, 8, 167, 0.1); /* Светлее */
             padding: 20px;
             border-radius: 12px;
             text-align: center;
             transition: transform 0.3s ease;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #FFD700; /* Желтый акцент Лелуша */
         }
 
         .stat-item:hover {
@@ -713,12 +723,12 @@
 
         .stat-value {
             font-size: 28px;
-            color: #ff9f43; /* Яркий акцент из варианта 2 */
+            color: #FFD700; /* Желтый цвет Лелуша */
             font-weight: bold;
             margin: 10px 0;
         }
 
-        /* 3. История - ВЗЯТ ИЗ ВАРИАНТА 1 (более четкий таймлайн) */
+        /* 3. История - ЖЕЛТЫЕ АКЦЕНТЫ */
         .timeline {
             position: relative;
             max-width: 800px;
@@ -732,7 +742,7 @@
             transform: translateX(-50%);
             width: 3px;
             height: 100%;
-            background: linear-gradient(to bottom, #ff9f43, #ee5a24); /* Градиент из варианта 2 */
+            background: linear-gradient(to bottom, #FFD700, #FFA500); /* Желтый градиент Лелуша */
         }
 
         .timeline-item {
@@ -750,26 +760,36 @@
         }
 
         .timeline-content {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(88, 8, 167, 0.1); /* Светлее */
             padding: 20px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2); /* Желтая граница */
             transition: transform 0.3s ease;
         }
 
         .timeline-content:hover {
-            transform: translateY(-5px); /* Добавили интерактивности */
-            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+            background: rgba(88, 8, 167, 0.15); /* Светлее */
         }
 
         .timeline-year {
-            color: #ff9f43; /* Из варианта 2 */
+            color: #FFD700; /* Желтый цвет Лелуша */
             font-weight: bold;
             margin-bottom: 10px;
             font-size: 1.2rem;
         }
 
-        /* 4. Стратегии - КОМБИНАЦИЯ: сетка из 1, карточки из 2 */
+        .timeline-content h4 {
+            color: white; /* Белый текст */
+            text-shadow: none; /* Убраны тени */
+        }
+
+        .timeline-content p {
+            color: white; /* Белый текст */
+            text-shadow: none; /* Убраны тени */
+        }
+
+        /* 4. Стратегии - ЖЕЛТЫЕ АКЦЕНТЫ */
         .strategies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -777,31 +797,37 @@
         }
 
         .strategy-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(88, 8, 167, 0.1); /* Светлее */
             padding: 25px;
             border-radius: 15px;
-            border-top: 4px solid #764ba2;
+            border-top: 4px solid #FFD700; /* Желтый акцент Лелуша */
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
         .strategy-card:hover {
-            transform: translateY(-10px); /* Из варианта 2 */
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px rgba(255, 159, 67, 0.2); /* Из варианта 2 */
+            transform: translateY(-10px);
+            background: rgba(88, 8, 167, 0.15); /* Светлее */
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2); /* Желтая тень Лелуша */
         }
 
         .strategy-title {
-            color: #fff;
+            color: white; /* Белый текст */
             font-size: 20px;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: none; /* Убраны тени */
         }
 
-        /* 5. Галерея - ВЗЯТ ИЗ ВАРИАНТА 1 (единообразные карточки) */
+        .strategy-card p {
+            color: white; /* Белый текст */
+            text-shadow: none; /* Убраны тени */
+        }
+
+        /* 5. Галерея - ЖЕЛТЫЕ АКЦЕНТЫ */
         .image-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -816,10 +842,12 @@
             height: 200px;
             cursor: pointer;
             transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.2); /* Желтая граница */
         }
 
         .gallery-item:hover {
-            transform: scale(1.05); /* Усилили эффект */
+            transform: scale(1.05);
+            border-color: rgba(255, 215, 0, 0.5); /* Более яркая желтая граница при наведении */
         }
 
         .gallery-item img {
@@ -838,18 +866,20 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(88, 8, 167, 0.9); /* Фиолетовый фон */
             color: white;
             padding: 15px;
             transform: translateY(100%);
             transition: transform 0.3s ease;
+            text-shadow: none; /* Убраны тени */
+            border-top: 2px solid #FFD700; /* Желтая верхняя граница */
         }
 
         .gallery-item:hover .gallery-overlay {
             transform: translateY(0);
         }
 
-        /* 6. Порядок просмотра - ВЗЯТ ИЗ ВАРИАНТА 2 (крутые номерки) */
+        /* 6. Порядок просмотра - ЖЕЛТЫЕ АКЦЕНТЫ */
         .watch-order {
             display: flex;
             flex-direction: column;
@@ -863,39 +893,41 @@
             align-items: center;
             gap: 20px;
             padding: 25px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(88, 8, 167, 0.1); /* Светлее */
             border-radius: 15px;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #FFD700; /* Желтый акцент Лелуша */
             transition: transform 0.3s ease;
         }
 
         .order-item:hover {
             transform: translateX(10px);
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(88, 8, 167, 0.15); /* Светлее */
         }
 
         .order-number {
             width: 40px;
             height: 40px;
-            background: #ff9f43; /* Яркий акцент из варианта 2 */
+            background: #FFD700; /* Желтый цвет Лелуша */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
-            color: #1a1a2e;
+            color: #1a1a2e; /* Темный текст на желтом фоне */
         }
 
         .order-content h4 {
-            color: #fff;
+            color: white; /* Белый текст */
             font-size: 22px;
             margin-bottom: 5px;
+            text-shadow: none; /* Убраны тени */
         }
 
         .episodes {
-            color: #b0b0b0;
+            color: white; /* Белый текст */
             line-height: 1.6;
+            text-shadow: none; /* Убраны тени */
         }
 
         /* =================== ПОДВАЛ =================== */
@@ -903,9 +935,9 @@
             width: 100%;
             max-width: 1920px;
             margin: 0 auto;
-            background-color: rgba(240, 240, 240, 0.95);
+            background-color: rgba(88, 8, 167, 0.98); /* Темнее чем у блоков, почти непрозрачный */
             padding: 40px 20px;
-            border-top: 3px solid rgba(128, 0, 128, 0.1);
+            border-top: 3px solid #FFD700; /* Желтая верхняя граница Лелуша */
         }
 
         .footer-content {
@@ -920,10 +952,11 @@
         .contact-form-container {
             flex: 1;
             min-width: 300px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #FFD700; /* Желтая граница */
         }
 
         .contact-info {
@@ -933,15 +966,17 @@
         }
 
         .contact-info h3 {
-            color: #333;
+            color: white; /* Белый текст */
             margin-bottom: 20px;
             font-size: 24px;
+            text-shadow: none; /* Убраны тени */
         }
 
         .contact-info p {
-            color: #555;
+            color: white; /* Белый текст */
             margin-bottom: 15px;
             font-size: 16px;
+            text-shadow: none; /* Убраны тени */
         }
 
         .form-container {
@@ -970,14 +1005,14 @@
             font-size: 16px;
             font-family: inherit;
             transition: all 0.3s ease;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: rgba(128, 0, 128, 0.5);
-            box-shadow: 0 0 0 2px rgba(128, 0, 128, 0.1);
+            border-color: #FFD700; /* Желтый цвет Лелуша */
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2); /* Желтая тень */
         }
 
         .form-group textarea {
@@ -994,7 +1029,7 @@
         .submit-btn {
             flex: 2;
             padding: 14px 20px;
-            background-color: rgba(119, 119, 119, 0.9);
+            background-color: rgba(88, 8, 167, 0.9); /* Темнее чем у блока */
             color: white;
             border: none;
             border-radius: 8px;
@@ -1005,7 +1040,7 @@
         }
 
         .submit-btn:hover:not(:disabled) {
-            background-color: rgba(100, 100, 100, 0.95);
+            background-color: rgba(108, 38, 187, 0.95); /* Более светлый оттенок */
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
@@ -1013,7 +1048,7 @@
         .reset-btn {
             flex: 1;
             padding: 14px 20px;
-            background-color: rgba(220, 220, 220, 0.9);
+            background-color: rgba(255, 215, 0, 0.9); /* Желтый цвет Лелуша */
             color: #333;
             border: none;
             border-radius: 8px;
@@ -1024,7 +1059,7 @@
         }
 
         .reset-btn:hover {
-            background-color: rgba(200, 200, 200, 0.95);
+            background-color: rgba(255, 215, 0, 0.95); /* Более яркий желтый */
             transform: translateY(-2px);
         }
 
@@ -1067,9 +1102,10 @@
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #666;
+            border-top: 1px solid rgba(255, 215, 0, 0.3); /* Желтая граница */
+            color: white; /* Белый текст */
             font-size: 14px;
+            text-shadow: none; /* Убраны тени */
         }
 
         /* =================== АДАПТИВНОСТЬ =================== */
@@ -1087,12 +1123,17 @@
             .info-block {
                 transform: scale(calc(100vw / 1920));
             }
+            
+            .page {
+                min-height: calc(2531px * (100vw / 1920)); /* Масштабируем высоту */
+            }
         }
 
         /* 2. МАЛЕНЬКИЕ НОУТБУКИ (1024px - 1440px) */
         @media (max-width: 1440px) and (min-width: 1025px) {
             .page {
                 background-size: cover;
+                min-height: calc(2531px * (100vw / 1920));
             }
             
             .anchor {
@@ -1213,6 +1254,8 @@
                 align-items: center;
                 justify-content: flex-start;
                 padding-top: 100px;
+                min-height: auto;
+                height: auto;
             }
             
             .anchor {
@@ -1327,7 +1370,8 @@
             }
             
             .content-sections {
-                margin-top: 1800px;
+                margin-top: 1200px;
+                padding: 80px 0 0 0; /* ИЗМЕНЕНО: убрали верхний отступ */
             }
             
             .section {
@@ -1394,6 +1438,8 @@
                 flex-direction: column;
                 align-items: center;
                 padding-top: 80px;
+                min-height: auto;
+                height: auto;
             }
             
             .anchor {
@@ -1526,8 +1572,8 @@
             }
             
             .content-sections {
-                margin-top: 1400px;
-                padding: 50px 0;
+                margin-top: 900px;
+                padding: 50px 0 0 0; /* ИЗМЕНЕНО: убрали верхний отступ */
             }
             
             .section {
@@ -1616,6 +1662,7 @@
                 justify-content: flex-start;
                 padding-top: 40px;
                 min-height: auto;
+                height: auto;
             }
             
             /* Якорь - центрируем и увеличиваем */
@@ -1764,8 +1811,8 @@
             }
             
             .content-sections {
-                margin-top: 1000px;
-                padding: 30px 0;
+                margin-top: 600px;
+                padding: 30px 0 0 0; /* ИЗМЕНЕНО: убрали верхний отступ */
             }
             
             .section {
@@ -1922,7 +1969,7 @@
             }
             
             .content-sections {
-                margin-top: 900px;
+                margin-top: 500px;
             }
             
             .section-title {
@@ -1990,13 +2037,13 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: rgba(102, 102, 102, 0.3);
+            background-color: rgba(88, 8, 167, 0.3); /* Обновлен цвет */
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .indicator.active {
-            background-color: rgba(102, 102, 102, 0.8);
+            background-color: rgba(88, 8, 167, 0.8); /* Обновлен цвет */
             transform: scale(1.2);
         }
 
@@ -2408,14 +2455,14 @@
                     
                     <div class="image-gallery">
                         <div class="gallery-item">
-                            <img src="https://via.placeholder.com/300x200/667eea/fff?text=Лелуш+как+Зеро" alt="Лелуш как Зеро">
+                            <img src="https://via.placeholder.com/300x200/5808A7/fff?text=Лелуш+как+Зеро" alt="Лелуш как Зеро">
                             <div class="gallery-overlay">
                                 <strong>Зеро</strong><br>
                                 Легендарная маска сопротивления
                             </div>
                         </div>
                         <div class="gallery-item">
-                            <img src="https://via.placeholder.com/300x200/764ba2/fff?text=Ланцелот" alt="Ланцелот">
+                            <img src="https://via.placeholder.com/300x200/6C26BB/fff?text=Ланцелот" alt="Ланцелот">
                             <div class="gallery-overlay">
                                 <strong>Ланцелот</strong><br>
                                 Найтмер Сюзанны
@@ -2436,14 +2483,14 @@
                             </div>
                         </div>
                         <div class="gallery-item">
-                            <img src="https://via.placeholder.com/300x200/667eea/fff?text=Гиасс+активация" alt="Активация Гиасса">
+                            <img src="https://via.placeholder.com/300x200/5808A7/fff?text=Гиасс+активация" alt="Активация Гиасса">
                             <div class="gallery-overlay">
                                 <strong>Гиасс</strong><br>
                                 Символ летящей птицы
                             </div>
                         </div>
                         <div class="gallery-item">
-                            <img src="https://via.placeholder.com/300x200/764ba2/fff?text=Чёрные+Рыцари" alt="Чёрные Рыцари">
+                            <img src="https://via.placeholder.com/300x200/6C26BB/fff?text=Чёрные+Рыцари" alt="Чёрные Рыцари">
                             <div class="gallery-overlay">
                                 <strong>Чёрные Рыцари</strong><br>
                                 Армия сопротивления
@@ -2826,27 +2873,6 @@
             }
         }
 
-        // Автоматическое изменение высоты страницы
-        function updatePageHeight() {
-            const page = document.getElementById("page");
-            const bgImg = new Image();
-            bgImg.src = "fon.png";
-
-            bgImg.onload = function () {
-                const aspectRatio = bgImg.width / bgImg.height;
-                const pageWidth = page.offsetWidth || window.innerWidth;
-
-                if (pageWidth > 0) {
-                    const calculatedHeight = pageWidth / aspectRatio;
-                    page.style.minHeight = Math.max(calculatedHeight, window.innerHeight) + "px";
-                }
-            };
-
-            bgImg.onerror = function () {
-                page.style.minHeight = "2530px";
-            };
-        }
-
         // ИНТЕРАКТИВНАЯ ГАЛЕРЕЯ
         const galleryContainer = document.querySelector('.gallery-container');
         const learnMoreBtn = document.getElementById('learnMoreBtn');
@@ -3105,13 +3131,11 @@
         // Инициализация
         window.addEventListener("load", () => {
             arrangeBlocks();
-            updatePageHeight();
         });
 
         // Обработка изменения размера окна
         window.addEventListener("resize", () => {
             arrangeBlocks();
-            updatePageHeight();
         });
     </script>
 </body>
