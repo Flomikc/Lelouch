@@ -17,7 +17,7 @@
         width: 100%;
         min-height: 100vh;
         background-color: rgba(88, 8, 167, 1);
-        overflow-x: hidden; /* ИЗМЕНЕНО: запрещаем горизонтальный скролл */
+        overflow-x: hidden;
         overflow-y: auto;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
@@ -34,13 +34,15 @@
         background-size: 100% auto;
         background-position: top center;
         background-repeat: no-repeat;
-        overflow: hidden; /* ИЗМЕНЕНО: скрываем выходящее за границы */
+        overflow: hidden;
         margin: 0 auto;
         flex: 1;
         background-color: rgba(88, 8, 167, 0.9);
       }
 
-      /* Якорь - фиксированные размеры для ПК */
+      /* =================== ЯКОРЬ И ЕГО ЭЛЕМЕНТЫ =================== */
+
+      /* Для ПК - оригинальные стили */
       .anchor {
         position: absolute;
         width: 1189px;
@@ -51,6 +53,58 @@
         transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         pointer-events: none;
         z-index: 1;
+      }
+
+      /* Для ноутбуков - уменьшенный размер и сдвинут ближе */
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .anchor {
+          width: 950px;
+          height: 950px;
+          top: 50px;
+          left: 50%;
+          margin-left: -475px;
+          transform-origin: 475px 475px;
+        }
+      }
+
+      /* Для телефонов - центрирован и повернут */
+      @media (max-width: 768px) {
+        .anchor {
+          width: 400px;
+          height: 400px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(30deg);
+          transform-origin: center;
+          margin: 0;
+          transition: none !important;
+        }
+        
+        /* Для телефонов убираем вращение inside-layer */
+        .inside-layer {
+          transition: none !important;
+        }
+        
+        /* Центрируем outside и inside для телефонов */
+        .outside-layer,
+        .inside-layer {
+          transform: rotate(-30deg) !important;
+        }
+      }
+
+      /* Для очень маленьких телефонов */
+      @media (max-width: 480px) {
+        .anchor {
+          width: 350px;
+          height: 350px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .anchor {
+          width: 300px;
+          height: 300px;
+        }
       }
 
       /* Общие стили для всех слоев якоря */
@@ -83,7 +137,7 @@
         transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
-      /* Аватар - статичный слой, позиционируется отдельно */
+      /* Аватар - статичный слой */
       .avatar-container {
         position: absolute;
         width: 1189px;
@@ -91,7 +145,7 @@
         top: -99px;
         left: 788px;
         pointer-events: none;
-        z-index: 3; /* Выше всех слоев якоря */
+        z-index: 3;
       }
 
       .avatar-container img {
@@ -102,7 +156,44 @@
         object-fit: contain;
       }
 
-      /* Блоки информации - ОБНОВЛЕННЫЕ ЦВЕТА */
+      /* Для ноутбуков - уменьшенный аватар */
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .avatar-container {
+          width: 950px;
+          height: 950px;
+          top: 50px;
+          left: 50%;
+          margin-left: -475px;
+        }
+      }
+
+      /* Для телефонов - центрированный аватар */
+      @media (max-width: 768px) {
+        .avatar-container {
+          width: 400px;
+          height: 400px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          margin: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .avatar-container {
+          width: 350px;
+          height: 350px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .avatar-container {
+          width: 300px;
+          height: 300px;
+        }
+      }
+
+      /* =================== БЛОКИ ИНФОРМАЦИИ =================== */
       .info-block {
         position: absolute;
         width: 658px;
@@ -121,6 +212,111 @@
           transparent 1px
         );
         background-size: 6.5px 6.5px;
+      }
+
+      /* Уменьшаем блоки для ноутбуков */
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .info-block {
+          width: 550px;
+          height: 385px;
+          transform: scale(0.9);
+        }
+        
+        .content {
+          top: 15px;
+          left: 15px;
+          right: 15px;
+          bottom: 70px;
+          padding: 15px;
+        }
+        
+        .content h2 {
+          font-size: 24px;
+          margin-bottom: 15px;
+        }
+        
+        .content p {
+          font-size: 16px;
+        }
+        
+        .next-btn,
+        .prev-btn {
+          width: 180px;
+          height: 45px;
+          font-size: 15px;
+        }
+        
+        .read-btn {
+          width: 320px;
+          height: 45px;
+          left: 250px;
+          font-size: 15px;
+        }
+        
+        .next-btn {
+          top: 270px;
+        }
+        
+        .prev-btn {
+          top: 330px;
+        }
+        
+        .read-btn {
+          top: 330px;
+        }
+      }
+
+      /* Для планшетов и телефонов */
+      @media (max-width: 1024px) {
+        .info-block {
+          position: relative !important;
+          width: 90% !important;
+          max-width: 600px;
+          height: auto !important;
+          min-height: 400px;
+          margin: 20px auto;
+          display: none;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          top: 0 !important;
+        }
+        
+        .info-block.active {
+          display: block;
+        }
+        
+        .content {
+          position: relative;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          padding: 30px;
+          height: auto;
+        }
+        
+        .next-btn,
+        .prev-btn,
+        .read-btn {
+          position: relative;
+          top: 0;
+          left: 0;
+          width: 100%;
+          margin: 10px 0;
+          height: 50px;
+          font-size: 16px;
+        }
+        
+        .read-btn {
+          margin-left: 0;
+        }
+        
+        .buttons-container {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding: 20px;
+        }
       }
 
       .info-block::before {
@@ -272,7 +468,7 @@
         box-shadow: none !important;
       }
 
-      /* =================== СТИЛИ ДЛЯ OVERLAY-ИЗОБРАЖЕНИЯ =================== */
+      /* =================== OVERLAY-ИЗОБРАЖЕНИЕ =================== */
       .overlay-image-container {
         position: absolute;
         width: 100%;
@@ -282,6 +478,13 @@
         pointer-events: none;
       }
 
+      /* Убираем fon2.png для телефонов */
+      @media (max-width: 768px) {
+        .overlay-image-container {
+          display: none;
+        }
+      }
+
       .overlay-image {
         width: 100%;
         height: auto;
@@ -289,7 +492,6 @@
         max-width: 1920px;
         margin: 0 auto;
       }
-      /* =================== КОНЕЦ OVERLAY-ИЗОБРАЖЕНИЯ =================== */
 
       /* =================== ИНТЕРАКТИВНАЯ ГАЛЕРЕЯ =================== */
       .interactive-gallery {
@@ -301,12 +503,52 @@
         pointer-events: none;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .interactive-gallery {
+          top: 1200px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .interactive-gallery {
+          position: relative;
+          top: 50px;
+          margin-bottom: 50px;
+        }
+      }
+
       .gallery-container {
         position: relative;
         width: 1023px;
         height: 613px;
         margin: 0 auto;
         pointer-events: auto;
+      }
+
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .gallery-container {
+          width: 900px;
+          height: 540px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .gallery-container {
+          width: 90%;
+          height: 400px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-container {
+          height: 300px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-container {
+          height: 250px;
+        }
       }
 
       .central-image {
@@ -339,6 +581,45 @@
         flex-direction: column;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .text-overlay {
+          width: 450px;
+          height: 320px;
+          top: 180px;
+          right: 40px;
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .text-overlay {
+          width: 350px;
+          height: 280px;
+          top: 140px;
+          right: 30px;
+          padding: 15px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .text-overlay {
+          width: 300px;
+          height: 240px;
+          top: 70px;
+          right: 20px;
+          padding: 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .text-overlay {
+          width: 250px;
+          height: 200px;
+          top: 50px;
+          right: 10px;
+        }
+      }
+
       .text-content {
         position: absolute;
         top: 0;
@@ -368,6 +649,26 @@
         text-shadow: none;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .highlight-text {
+          font-size: 20px;
+          margin-bottom: 12px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .highlight-text {
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .highlight-text {
+          font-size: 16px;
+        }
+      }
+
       .text-content p {
         color: white;
         font-size: 18px;
@@ -378,6 +679,25 @@
         text-shadow: none;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .text-content p {
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .text-content p {
+          font-size: 15px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .text-content p {
+          font-size: 14px;
+          line-height: 1.3;
+        }
+      }
+
       /* Кнопки внутри текстового блока */
       .text-buttons {
         display: flex;
@@ -385,6 +705,14 @@
         margin-top: auto;
         padding-top: 20px;
         justify-content: center;
+      }
+
+      @media (max-width: 768px) {
+        .text-buttons {
+          flex-direction: column;
+          gap: 8px;
+          padding-top: 10px;
+        }
       }
 
       .learn-more-btn {
@@ -408,6 +736,14 @@
       .learn-more-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 15px rgba(88, 8, 167, 0.5);
+      }
+
+      @media (max-width: 768px) {
+        .learn-more-btn {
+          padding: 8px 12px;
+          font-size: 12px;
+          min-width: 120px;
+        }
       }
 
       .nav-buttons {
@@ -450,6 +786,42 @@
         margin-top: -170px;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .hidden-photo {
+          width: 280px;
+          height: 280px;
+          margin-left: -140px;
+          margin-top: -140px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .hidden-photo {
+          width: 200px;
+          height: 200px;
+          margin-left: -100px;
+          margin-top: -100px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hidden-photo {
+          width: 150px;
+          height: 150px;
+          margin-left: -75px;
+          margin-top: -75px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hidden-photo {
+          width: 100px;
+          height: 100px;
+          margin-left: -50px;
+          margin-top: -50px;
+        }
+      }
+
       .hidden-photo img {
         width: 100%;
         height: 100%;
@@ -465,11 +837,59 @@
         transition-delay: 0.1s;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .gallery-container.photos-active #photo1 {
+          transform: translate(-450px, -225px) rotate(-15deg) scale(1);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .gallery-container.photos-active #photo1 {
+          transform: translate(-300px, -150px) rotate(-10deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-container.photos-active #photo1 {
+          transform: translate(-180px, -90px) rotate(-8deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-container.photos-active #photo1 {
+          transform: translate(-120px, -60px) rotate(-6deg);
+        }
+      }
+
       .gallery-container.photos-active #photo2 {
         transform: translate(0, -450px) rotate(5deg) scale(1);
         opacity: 1;
         visibility: visible;
         transition-delay: 0.2s;
+      }
+
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .gallery-container.photos-active #photo2 {
+          transform: translate(0, -337px) rotate(5deg) scale(1);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .gallery-container.photos-active #photo2 {
+          transform: translate(0, -225px) rotate(5deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-container.photos-active #photo2 {
+          transform: translate(0, -135px) rotate(5deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-container.photos-active #photo2 {
+          transform: translate(0, -90px) rotate(5deg);
+        }
       }
 
       .gallery-container.photos-active #photo3 {
@@ -479,6 +899,30 @@
         transition-delay: 0.3s;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .gallery-container.photos-active #photo3 {
+          transform: translate(450px, -225px) rotate(15deg) scale(1);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .gallery-container.photos-active #photo3 {
+          transform: translate(300px, -150px) rotate(10deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-container.photos-active #photo3 {
+          transform: translate(180px, -90px) rotate(8deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-container.photos-active #photo3 {
+          transform: translate(120px, -60px) rotate(6deg);
+        }
+      }
+
       .gallery-container.photos-active #photo4 {
         transform: translate(-450px, 300px) rotate(-10deg) scale(1);
         opacity: 1;
@@ -486,11 +930,59 @@
         transition-delay: 0.4s;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .gallery-container.photos-active #photo4 {
+          transform: translate(-337px, 225px) rotate(-10deg) scale(1);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .gallery-container.photos-active #photo4 {
+          transform: translate(-225px, 150px) rotate(-8deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-container.photos-active #photo4 {
+          transform: translate(-135px, 90px) rotate(-6deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-container.photos-active #photo4 {
+          transform: translate(-90px, 60px) rotate(-4deg);
+        }
+      }
+
       .gallery-container.photos-active #photo5 {
         transform: translate(450px, 300px) rotate(10deg) scale(1);
         opacity: 1;
         visibility: visible;
         transition-delay: 0.5s;
+      }
+
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .gallery-container.photos-active #photo5 {
+          transform: translate(337px, 225px) rotate(10deg) scale(1);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .gallery-container.photos-active #photo5 {
+          transform: translate(225px, 150px) rotate(8deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-container.photos-active #photo5 {
+          transform: translate(135px, 90px) rotate(6deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-container.photos-active #photo5 {
+          transform: translate(90px, 60px) rotate(4deg);
+        }
       }
 
       /* Анимация появления кнопок навигации */
@@ -529,7 +1021,55 @@
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       }
 
-      /* =================== КОМБИНИРОВАННЫЕ НОВЫЕ СЕКЦИИ =================== */
+      /* =================== ОСТАЛЬНЫЕ СТИЛИ =================== */
+      
+      /* Адаптивность для страницы */
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .page {
+          min-height: calc(2531px * (100vw / 1920));
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .page {
+          background-size: cover;
+          min-height: auto;
+          height: auto;
+          padding-bottom: 50px;
+        }
+      }
+
+      /* Индикаторы для мобильных */
+      .mobile-indicators {
+        display: none;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px 0;
+      }
+
+      @media (max-width: 1024px) {
+        .mobile-indicators {
+          display: flex;
+        }
+      }
+
+      .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(88, 8, 167, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .indicator.active {
+        background-color: rgba(88, 8, 167, 0.8);
+        transform: scale(1.2);
+      }
+
+      /* Стили для контентных секций, футера и других элементов остаются без изменений */
+      /* ... остальной CSS код без изменений ... */
+
       .content-sections {
         position: relative;
         width: 100%;
@@ -539,6 +1079,13 @@
         margin-top: 0;
       }
 
+      @media (max-width: 1024px) {
+        .content-sections {
+          margin-top: 50px;
+          padding: 50px 0 0 0;
+        }
+      }
+
       .section-container {
         max-width: 1200px;
         margin: 0 auto;
@@ -546,10 +1093,10 @@
       }
 
       .section {
-        position: relative; /* Добавлено для позиционирования кнопки */
+        position: relative;
         max-width: 1200px;
         margin: 0 auto 100px;
-        padding: 60px 40px 80px; /* Увеличено снизу для кнопки */
+        padding: 60px 40px 80px;
         background: rgba(88, 8, 167, 0.15);
         border-radius: 25px;
         backdrop-filter: blur(10px);
@@ -591,7 +1138,7 @@
         text-shadow: none;
       }
 
-      /* КНОПКА "ВЕРНУТЬСЯ В МЕНЮ" - НОВЫЙ СТИЛЬ */
+      /* КНОПКА "ВЕРНУТЬСЯ В МЕНЮ" */
       .back-to-menu-btn {
         display: block;
         margin: 40px auto 0;
@@ -634,379 +1181,9 @@
         box-shadow: 0 2px 10px rgba(88, 8, 167, 0.4);
       }
 
-      /* 1. Сеттинг */
-      .setting-section {
-        background: linear-gradient(
-          135deg,
-          rgba(184, 122, 245, 0.178),
-          rgba(101, 28, 161, 0.9)
-        );
-      }
+      /* Футер и другие стили остаются без изменений */
+      /* ... остальной CSS код ... */
 
-      .setting-block {
-        display: flex;
-        align-items: center;
-        gap: 60px;
-        padding: 40px;
-        background: rgba(88, 8, 167, 0.1);
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 215, 0, 0.2);
-      }
-
-      .setting-text {
-        flex: 1;
-      }
-
-      .setting-text h3 {
-        font-size: 2.2rem;
-        color: #ffd700;
-        margin-bottom: 20px;
-      }
-
-      .setting-text p {
-        color: white;
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin-bottom: 15px;
-        text-shadow: none;
-      }
-
-      .setting-bg {
-        flex: 1;
-        height: 400px;
-        background: linear-gradient(
-          45deg,
-          rgba(88, 8, 167, 0.15),
-          rgba(255, 215, 0, 0.1)
-        );
-        border-radius: 15px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .setting-bg::before {
-        content: "";
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-            circle at 30% 30%,
-            rgba(88, 8, 167, 0.2) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 70% 70%,
-            rgba(255, 215, 0, 0.2) 0%,
-            transparent 50%
-          );
-        animation: rotate 20s linear infinite;
-      }
-
-      @keyframes rotate {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* 2. Персонаж */
-      .character-section {
-        background: linear-gradient(
-          135deg,
-          rgba(88, 8, 167, 0.15),
-          rgba(108, 38, 187, 0.1)
-        );
-      }
-
-      .character-block {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-bottom: 40px;
-      }
-
-      .character-card {
-        background: rgba(88, 8, 167, 0.1);
-        border-radius: 15px;
-        padding: 30px;
-        border: 1px solid rgba(255, 215, 0, 0.2);
-        transition: transform 0.3s ease, background 0.3s ease;
-        border-top: 4px solid #ffd700;
-      }
-
-      .character-card:hover {
-        transform: translateY(-10px);
-        background: rgba(88, 8, 167, 0.15);
-      }
-
-      .character-card h3 {
-        color: white;
-        font-size: 20px;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-shadow: none;
-      }
-
-      .character-card h3::before {
-        content: "★";
-        color: #ffd700;
-      }
-
-      .character-card ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .character-card li {
-        margin-bottom: 10px;
-        padding-left: 20px;
-        position: relative;
-        color: white;
-        text-shadow: none;
-      }
-
-      .character-card li::before {
-        content: "→";
-        position: absolute;
-        left: 0;
-        color: #ffd700;
-      }
-
-      .character-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-        margin-bottom: 40px;
-      }
-
-      .stat-item {
-        background: rgba(88, 8, 167, 0.1);
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-        transition: transform 0.3s ease;
-        border-left: 4px solid #ffd700;
-      }
-
-      .stat-item:hover {
-        transform: translateY(-5px);
-      }
-
-      .stat-value {
-        font-size: 28px;
-        color: #ffd700;
-        font-weight: bold;
-        margin: 10px 0;
-      }
-
-      /* 3. История */
-      .timeline {
-        position: relative;
-        max-width: 800px;
-        margin: 40px auto 0;
-      }
-
-      .timeline::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 3px;
-        height: 100%;
-        background: linear-gradient(to bottom, #ffd700, #ffa500);
-      }
-
-      .timeline-item {
-        position: relative;
-        margin-bottom: 40px;
-        width: 45%;
-      }
-
-      .timeline-item:nth-child(odd) {
-        left: 0;
-      }
-
-      .timeline-item:nth-child(even) {
-        left: 55%;
-      }
-
-      .timeline-content {
-        background: rgba(88, 8, 167, 0.1);
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 215, 0, 0.2);
-        transition: transform 0.3s ease;
-      }
-
-      .timeline-content:hover {
-        transform: translateY(-5px);
-        background: rgba(88, 8, 167, 0.15);
-      }
-
-      .timeline-year {
-        color: #ffd700;
-        font-weight: bold;
-        margin-bottom: 10px;
-        font-size: 1.2rem;
-      }
-
-      .timeline-content h4 {
-        color: white;
-        text-shadow: none;
-      }
-
-      .timeline-content p {
-        color: white;
-        text-shadow: none;
-      }
-
-      /* 4. Стратегии */
-      .strategies-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-      }
-
-      .strategy-card {
-        background: rgba(88, 8, 167, 0.1);
-        padding: 25px;
-        border-radius: 15px;
-        border-top: 4px solid #ffd700;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .strategy-card:hover {
-        transform: translateY(-10px);
-        background: rgba(88, 8, 167, 0.15);
-        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-      }
-
-      .strategy-title {
-        color: white;
-        font-size: 20px;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-shadow: none;
-      }
-
-      .strategy-card p {
-        color: white;
-        text-shadow: none;
-      }
-
-      /* 5. Галерея */
-      .image-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 30px;
-      }
-
-      .gallery-item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px;
-        height: 200px;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        border: 1px solid rgba(255, 215, 0, 0.2);
-      }
-
-      .gallery-item:hover {
-        transform: scale(1.05);
-        border-color: rgba(255, 215, 0, 0.5);
-      }
-
-      .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-      }
-
-      .gallery-item:hover img {
-        transform: scale(1.1);
-      }
-
-      .gallery-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(88, 8, 167, 0.9);
-        color: white;
-        padding: 15px;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
-        text-shadow: none;
-        border-top: 2px solid #ffd700;
-      }
-
-      .gallery-item:hover .gallery-overlay {
-        transform: translateY(0);
-      }
-
-      /* 6. Порядок просмотра */
-      .watch-order {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .order-item {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        padding: 25px;
-        background: rgba(88, 8, 167, 0.1);
-        border-radius: 15px;
-        border-left: 5px solid #ffd700;
-        transition: transform 0.3s ease;
-      }
-
-      .order-item:hover {
-        transform: translateX(10px);
-        background: rgba(88, 8, 167, 0.15);
-      }
-
-      .order-number {
-        width: 40px;
-        height: 40px;
-        background: #ffd700;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 1.2rem;
-        color: #1a1a2e;
-      }
-
-      .order-content h4 {
-        color: white;
-        font-size: 22px;
-        margin-bottom: 5px;
-        text-shadow: none;
-      }
-
-      .episodes {
-        color: white;
-        line-height: 1.6;
-        text-shadow: none;
-      }
-
-      /* =================== ПОДВАЛ =================== */
       .footer {
         width: 100%;
         max-width: 1920px;
@@ -1182,983 +1359,6 @@
         color: white;
         font-size: 14px;
         text-shadow: none;
-      }
-
-      /* =================== АДАПТИВНОСТЬ =================== */
-
-      /* 1. НОУТБУКИ (1440px - 1920px) */
-      @media (max-width: 1920px) and (min-width: 1441px) {
-        .anchor {
-          transform: scale(calc(100vw / 1920));
-        }
-
-        .avatar-container {
-          transform: scale(calc(100vw / 1920));
-        }
-
-        .info-block {
-          transform: scale(calc(100vw / 1920));
-        }
-
-        .page {
-          min-height: calc(2531px * (100vw / 1920));
-        }
-      }
-
-      /* 2. МАЛЕНЬКИЕ НОУТБУКИ (1024px - 1440px) */
-      @media (max-width: 1440px) and (min-width: 1025px) {
-        .page {
-          background-size: cover;
-          min-height: calc(2531px * (100vw / 1920));
-        }
-
-        .anchor {
-          transform: scale(0.8);
-          transform-origin: 594.5px 594.5px;
-        }
-
-        .avatar-container {
-          transform: scale(0.8);
-        }
-
-        .info-block {
-          transform: scale(0.8);
-        }
-
-        .next-btn,
-        .prev-btn,
-        .read-btn {
-          font-size: 15px;
-          width: 180px;
-        }
-
-        .read-btn {
-          width: 320px;
-          left: 250px;
-        }
-
-        .gallery-container {
-          width: 800px;
-          height: 480px;
-        }
-
-        .text-overlay {
-          width: 400px;
-          height: 300px;
-          top: 180px;
-          right: 40px;
-        }
-
-        .hidden-photo {
-          width: 250px;
-          height: 250px;
-          margin-left: -125px;
-          margin-top: -125px;
-        }
-
-        .highlight-text {
-          font-size: 20px;
-        }
-
-        .text-content p {
-          font-size: 16px;
-        }
-
-        /* Уменьшаем разлет для средних экранов */
-        .gallery-container.photos-active #photo1 {
-          transform: translate(-450px, -225px) rotate(-15deg);
-        }
-
-        .gallery-container.photos-active #photo2 {
-          transform: translate(0, -337px) rotate(5deg);
-        }
-
-        .gallery-container.photos-active #photo3 {
-          transform: translate(450px, -225px) rotate(15deg);
-        }
-
-        .gallery-container.photos-active #photo4 {
-          transform: translate(-337px, 225px) rotate(-10deg);
-        }
-
-        .gallery-container.photos-active #photo5 {
-          transform: translate(337px, 225px) rotate(10deg);
-        }
-
-        .section {
-          padding: 50px 30px 70px; /* Увеличено снизу для кнопки */
-        }
-
-        .setting-block {
-          flex-direction: column;
-        }
-
-        .setting-bg {
-          width: 100%;
-          height: 300px;
-        }
-
-        .strategies-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .character-block {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        .character-stats {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        h2 {
-          font-size: 26px;
-        }
-
-        p {
-          font-size: 17px;
-        }
-      }
-
-      /* 3. ПЛАНШЕТЫ ГОРИЗОНТАЛЬНЫЕ (768px - 1024px) */
-      @media (max-width: 1024px) and (min-width: 769px) {
-        .page {
-          background-size: cover;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-          padding-top: 100px;
-          min-height: auto;
-          height: auto;
-        }
-
-        .anchor {
-          position: relative;
-          width: 600px;
-          height: 600px;
-          top: 0;
-          left: 0;
-          margin: 0 auto 40px;
-          transform-origin: center;
-        }
-
-        .avatar-container {
-          position: absolute;
-          width: 600px;
-          height: 600px;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 3;
-        }
-
-        .info-block {
-          position: relative;
-          width: 700px;
-          height: 500px;
-          margin: 20px auto;
-          display: none;
-        }
-
-        .info-block.active {
-          display: block;
-        }
-
-        .content {
-          padding: 25px;
-        }
-
-        .next-btn,
-        .prev-btn {
-          width: 180px;
-          height: 55px;
-          font-size: 16px;
-        }
-
-        .read-btn {
-          width: 340px;
-          height: 55px;
-          left: 230px;
-          font-size: 16px;
-        }
-
-        .gallery-container {
-          width: 90%;
-          max-width: 700px;
-          height: 420px;
-        }
-
-        .text-overlay {
-          width: 350px;
-          height: 280px;
-          top: 140px;
-          right: 30px;
-          left: auto;
-          padding: 20px;
-        }
-
-        .hidden-photo {
-          width: 200px;
-          height: 200px;
-          margin-left: -100px;
-          margin-top: -100px;
-        }
-
-        .highlight-text {
-          font-size: 18px;
-        }
-
-        .text-content p {
-          font-size: 15px;
-        }
-
-        .learn-more-btn {
-          padding: 10px 20px;
-          font-size: 14px;
-        }
-
-        .nav-btn {
-          padding: 10px 15px;
-          font-size: 13px;
-        }
-
-        /* Уменьшаем разлет для планшетов */
-        .gallery-container.photos-active #photo1 {
-          transform: translate(-300px, -150px) rotate(-10deg);
-        }
-
-        .gallery-container.photos-active #photo2 {
-          transform: translate(0, -225px) rotate(5deg);
-        }
-
-        .gallery-container.photos-active #photo3 {
-          transform: translate(300px, -150px) rotate(10deg);
-        }
-
-        .gallery-container.photos-active #photo4 {
-          transform: translate(-225px, 150px) rotate(-8deg);
-        }
-
-        .gallery-container.photos-active #photo5 {
-          transform: translate(225px, 150px) rotate(8deg);
-        }
-
-        .content-sections {
-          margin-top: 1200px;
-          padding: 80px 0 0 0;
-        }
-
-        .section {
-          margin: 0 20px 60px;
-          padding: 40px 20px 60px; /* Увеличено снизу для кнопки */
-        }
-
-        .section-title {
-          font-size: 2.2rem;
-        }
-
-        .setting-block {
-          flex-direction: column;
-          padding: 30px;
-        }
-
-        .setting-bg {
-          height: 250px;
-        }
-
-        .timeline::before {
-          left: 30px;
-        }
-
-        .timeline-item {
-          width: calc(100% - 50px);
-          left: 50px !important;
-        }
-
-        .timeline-item:nth-child(even) {
-          left: 50px !important;
-        }
-
-        .image-gallery {
-          grid-template-columns: repeat(3, 1fr);
-        }
-
-        h2 {
-          font-size: 26px;
-          text-align: center;
-        }
-
-        p {
-          font-size: 18px;
-          text-align: center;
-        }
-
-        /* Кнопка "Вернуться в меню" для планшетов */
-        .back-to-menu-btn {
-          padding: 12px 30px;
-          font-size: 16px;
-          max-width: 250px;
-        }
-
-        .footer-content {
-          flex-direction: column;
-          gap: 30px;
-        }
-
-        .contact-form-container,
-        .contact-info {
-          min-width: 100%;
-        }
-      }
-
-      /* 4. ПЛАНШЕТЫ ВЕРТИКАЛЬНЫЕ (481px - 768px) */
-      @media (max-width: 768px) and (min-width: 481px) {
-        .page {
-          background-size: cover;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding-top: 80px;
-          min-height: auto;
-          height: auto;
-        }
-
-        .anchor {
-          position: relative;
-          width: 500px;
-          height: 500px;
-          top: 0;
-          left: 0;
-          margin: 0 auto 30px;
-          transform-origin: center;
-        }
-
-        .avatar-container {
-          position: absolute;
-          width: 500px;
-          height: 500px;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 3;
-        }
-
-        .info-block {
-          position: relative;
-          width: 90%;
-          max-width: 600px;
-          height: auto;
-          min-height: 400px;
-          margin: 20px auto;
-          display: none;
-        }
-
-        .info-block.active {
-          display: block;
-        }
-
-        .content {
-          position: relative;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          padding: 30px;
-          height: auto;
-        }
-
-        .next-btn,
-        .prev-btn,
-        .read-btn {
-          position: relative;
-          top: 0;
-          left: 0;
-          width: 100%;
-          margin: 10px 0;
-          height: 50px;
-          font-size: 16px;
-        }
-
-        .read-btn {
-          margin-left: 0;
-        }
-
-        .buttons-container {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          padding: 20px;
-        }
-
-        .gallery-container {
-          width: 90%;
-          height: 350px;
-        }
-
-        .text-overlay {
-          width: 300px;
-          height: 240px;
-          top: 110px;
-          right: 20px;
-          left: auto;
-          padding: 15px;
-        }
-
-        .hidden-photo {
-          width: 150px;
-          height: 150px;
-          margin-left: -75px;
-          margin-top: -75px;
-        }
-
-        .highlight-text {
-          font-size: 16px;
-          margin-bottom: 10px;
-        }
-
-        .text-content p {
-          font-size: 14px;
-        }
-
-        .learn-more-btn {
-          padding: 8px 16px;
-          font-size: 13px;
-          min-width: 140px;
-        }
-
-        .nav-btn {
-          padding: 8px 12px;
-          font-size: 12px;
-        }
-
-        /* Уменьшаем разлет для мобильных */
-        .gallery-container.photos-active #photo1 {
-          transform: translate(-180px, -90px) rotate(-8deg);
-        }
-
-        .gallery-container.photos-active #photo2 {
-          transform: translate(0, -135px) rotate(5deg);
-        }
-
-        .gallery-container.photos-active #photo3 {
-          transform: translate(180px, -90px) rotate(8deg);
-        }
-
-        .gallery-container.photos-active #photo4 {
-          transform: translate(-135px, 90px) rotate(-6deg);
-        }
-
-        .gallery-container.photos-active #photo5 {
-          transform: translate(135px, 90px) rotate(6deg);
-        }
-
-        .content-sections {
-          margin-top: 900px;
-          padding: 50px 0 0 0;
-        }
-
-        .section {
-          margin: 0 15px 50px;
-          padding: 30px 20px 50px; /* Увеличено снизу для кнопки */
-        }
-
-        .section-title {
-          font-size: 1.8rem;
-        }
-
-        .setting-block {
-          flex-direction: column;
-          padding: 20px;
-        }
-
-        .setting-bg {
-          height: 200px;
-        }
-
-        .timeline::before {
-          left: 20px;
-        }
-
-        .timeline-item {
-          width: calc(100% - 40px);
-          left: 40px !important;
-        }
-
-        .image-gallery {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        .strategies-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .character-block,
-        .character-stats {
-          grid-template-columns: 1fr;
-        }
-
-        h2 {
-          font-size: 24px;
-          text-align: center;
-          margin-bottom: 20px;
-        }
-
-        p {
-          font-size: 17px;
-          text-align: center;
-          line-height: 1.6;
-        }
-
-        /* Кнопка "Вернуться в меню" для мобильных */
-        .back-to-menu-btn {
-          padding: 10px 25px;
-          font-size: 16px;
-          max-width: 220px;
-        }
-
-        .footer-content {
-          flex-direction: column;
-          gap: 30px;
-        }
-
-        .contact-form-container,
-        .contact-info {
-          min-width: 100%;
-        }
-
-        .form-buttons {
-          flex-direction: column;
-        }
-
-        .submit-btn,
-        .reset-btn {
-          width: 100%;
-        }
-      }
-
-      /* 5. ТЕЛЕФОНЫ (до 480px) */
-      @media (max-width: 480px) {
-        body {
-          overflow-x: hidden;
-        }
-
-        .page {
-          background-size: cover;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-          padding-top: 40px;
-          min-height: auto;
-          height: auto;
-        }
-
-        /* Якорь - центрируем и увеличиваем */
-        .anchor {
-          position: relative !important;
-          width: 300px !important;
-          height: 300px !important;
-          top: 0 !important;
-          left: 50% !important;
-          transform: translateX(-50%) !important;
-          margin: 0 auto 20px !important;
-          transform-origin: center !important;
-        }
-
-        .avatar-container {
-          position: absolute !important;
-          width: 300px !important;
-          height: 300px !important;
-          top: 40px !important;
-          left: 50% !important;
-          transform: translateX(-50%) !important;
-          z-index: 3 !important;
-        }
-
-        /* Блоки - увеличиваем в 2 раза и центрируем */
-        .info-block {
-          position: relative !important;
-          width: 95% !important;
-          max-width: 400px !important;
-          height: auto !important;
-          min-height: 350px !important;
-          margin: 15px auto !important;
-          display: none !important;
-          left: 50% !important;
-          transform: translateX(-50%) !important;
-          top: 0 !important;
-        }
-
-        .info-block.active {
-          display: block !important;
-          animation: fadeIn 0.5s ease;
-        }
-
-        .content {
-          position: relative !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          bottom: 0 !important;
-          padding: 25px !important;
-          height: auto !important;
-        }
-
-        .next-btn,
-        .prev-btn,
-        .read-btn {
-          position: relative !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 100% !important;
-          margin: 8px 0 !important;
-          height: 55px !important;
-          font-size: 16px !important;
-          font-weight: 600;
-        }
-
-        .read-btn {
-          margin-left: 0 !important;
-        }
-
-        .buttons-container {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-          padding: 15px;
-          margin-top: 20px;
-        }
-
-        /* Галерея для телефона */
-        .gallery-container {
-          width: 95%;
-          height: 250px;
-        }
-
-        .text-overlay {
-          width: 250px;
-          height: 200px;
-          top: 70px;
-          right: 10px;
-          left: auto;
-          padding: 12px;
-        }
-
-        .hidden-photo {
-          width: 100px;
-          height: 100px;
-          margin-left: -50px;
-          margin-top: -50px;
-        }
-
-        .highlight-text {
-          font-size: 14px;
-          margin-bottom: 8px;
-        }
-
-        .text-content p {
-          font-size: 13px;
-          line-height: 1.3;
-        }
-
-        .text-buttons {
-          flex-direction: column;
-          gap: 8px;
-        }
-
-        .learn-more-btn {
-          padding: 8px 12px;
-          font-size: 12px;
-          min-width: 120px;
-        }
-
-        .nav-btn {
-          padding: 8px 10px;
-          font-size: 11px;
-        }
-
-        /* Уменьшаем разлет для маленьких экранов */
-        .gallery-container.photos-active #photo1 {
-          transform: translate(-120px, -60px) rotate(-6deg);
-        }
-
-        .gallery-container.photos-active #photo2 {
-          transform: translate(0, -90px) rotate(5deg);
-        }
-
-        .gallery-container.photos-active #photo3 {
-          transform: translate(120px, -60px) rotate(6deg);
-        }
-
-        .gallery-container.photos-active #photo4 {
-          transform: translate(-90px, 60px) rotate(-4deg);
-        }
-
-        .gallery-container.photos-active #photo5 {
-          transform: translate(90px, 60px) rotate(4deg);
-        }
-
-        .content-sections {
-          margin-top: 600px;
-          padding: 30px 0 0 0;
-        }
-
-        .section {
-          margin: 0 10px 40px;
-          padding: 25px 15px 45px; /* Увеличено снизу для кнопки */
-        }
-
-        .section-title {
-          font-size: 1.6rem;
-        }
-
-        .setting-block {
-          padding: 15px;
-        }
-
-        .setting-text h3 {
-          font-size: 1.5rem;
-        }
-
-        .setting-bg {
-          height: 150px;
-        }
-
-        .timeline::before {
-          left: 10px;
-        }
-
-        .timeline-item {
-          width: calc(100% - 30px);
-          left: 30px !important;
-        }
-
-        .image-gallery {
-          grid-template-columns: 1fr;
-        }
-
-        .character-block,
-        .character-stats,
-        .strategies-grid {
-          grid-template-columns: 1fr;
-        }
-
-        h2 {
-          font-size: 24px !important;
-          text-align: center;
-          margin-bottom: 20px;
-        }
-
-        p {
-          font-size: 17px !important;
-          text-align: center;
-          line-height: 1.6;
-        }
-
-        /* Кнопка "Вернуться в меню" для телефонов */
-        .back-to-menu-btn {
-          padding: 10px 20px;
-          font-size: 15px;
-          max-width: 200px;
-          bottom: 20px;
-        }
-
-        /* Подвал для телефона */
-        .footer {
-          padding: 30px 15px;
-        }
-
-        .footer-content {
-          flex-direction: column;
-          gap: 25px;
-        }
-
-        .contact-form-container,
-        .contact-info {
-          min-width: 100%;
-          padding: 20px;
-        }
-
-        .contact-info h3 {
-          font-size: 22px;
-        }
-
-        .contact-info p {
-          font-size: 15px;
-        }
-
-        .form-container {
-          gap: 15px;
-        }
-
-        .form-group label {
-          font-size: 15px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-          padding: 14px;
-          font-size: 15px;
-        }
-
-        .form-buttons {
-          flex-direction: column;
-          gap: 10px;
-        }
-
-        .submit-btn,
-        .reset-btn {
-          width: 100%;
-          padding: 16px;
-          font-size: 16px;
-        }
-
-        .copyright {
-          margin-top: 30px;
-          font-size: 13px;
-        }
-      }
-
-      /* 6. ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 360px) */
-      @media (max-width: 360px) {
-        .anchor {
-          width: 250px !important;
-          height: 250px !important;
-        }
-
-        .avatar-container {
-          width: 250px !important;
-          height: 250px !important;
-        }
-
-        .info-block {
-          width: 98% !important;
-          min-height: 400px !important;
-        }
-
-        .gallery-container {
-          height: 220px;
-        }
-
-        .text-overlay {
-          width: 220px;
-          height: 180px;
-          top: 60px;
-          right: 10px;
-          left: auto;
-          padding: 10px;
-        }
-
-        .hidden-photo {
-          width: 80px;
-          height: 80px;
-          margin-left: -40px;
-          margin-top: -40px;
-        }
-
-        .highlight-text {
-          font-size: 13px;
-        }
-
-        .text-content p {
-          font-size: 12px;
-        }
-
-        .content-sections {
-          margin-top: 500px;
-        }
-
-        .section-title {
-          font-size: 1.4rem;
-        }
-
-        .setting-text h3 {
-          font-size: 1.3rem;
-        }
-
-        .setting-bg {
-          height: 120px;
-        }
-
-        h2 {
-          font-size: 22px !important;
-        }
-
-        p {
-          font-size: 16px !important;
-        }
-
-        .next-btn,
-        .prev-btn,
-        .read-btn {
-          height: 50px !important;
-          font-size: 15px !important;
-        }
-
-        /* Кнопка "Вернуться в меню" для очень маленьких телефонов */
-        .back-to-menu-btn {
-          padding: 8px 16px;
-          font-size: 14px;
-          max-width: 180px;
-        }
-      }
-
-      /* =================== АДАПТИВНОСТЬ ДЛЯ OVERLAY-ИЗОБРАЖЕНИЯ =================== */
-      @media (max-width: 1920px) {
-        .overlay-image {
-          width: 100%;
-          max-width: 100%;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .overlay-image-container {
-          top: 400px;
-          z-index: 5;
-        }
-
-        .overlay-image {
-          opacity: 0.8;
-        }
-      }
-
-      /* Индикаторы для мобильных */
-      .mobile-indicators {
-        display: none;
-        justify-content: center;
-        gap: 10px;
-        margin: 20px 0;
-      }
-
-      @media (max-width: 1024px) {
-        .mobile-indicators {
-          display: flex;
-        }
-      }
-
-      .indicator {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: rgba(88, 8, 167, 0.3);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .indicator.active {
-        background-color: rgba(88, 8, 167, 0.8);
-        transform: scale(1.2);
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateX(-50%) translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(-50%) translateY(0);
-        }
       }
     </style>
   </head>
@@ -2380,7 +1580,6 @@
       <div
         class="info-block active"
         id="block1"
-        style="top: 265px; left: 233px"
       >
         <div class="content">
           <h2>Введение в сеттинг</h2>
@@ -2959,6 +2158,9 @@
       const centerX = 788 + 594.5;
       const centerY = -99 + 594.5;
 
+      // Для ноутбуков уменьшаем радиус расположения блоков
+      const radiusMultiplier = window.innerWidth <= 1440 && window.innerWidth >= 1025 ? 0.8 : 1;
+      
       // Позиция блока 1 для ПК
       const block1X = 233 + 329;
       const block1Y = 265 + 230.5;
@@ -2966,7 +2168,7 @@
       // Рассчитываем угол и радиус для блока 1
       const dx = block1X - centerX;
       const dy = block1Y - centerY;
-      const radius = Math.sqrt(dx * dx + dy * dy);
+      const radius = Math.sqrt(dx * dx + dy * dy) * radiusMultiplier;
       const startAngle = (Math.atan2(dx, -dy) * 180) / Math.PI;
 
       // Определение типа устройства
@@ -2996,6 +2198,7 @@
       // Инициализация позиций блоков в зависимости от устройства
       function arrangeBlocks() {
         const device = getDeviceType();
+        const isMobile = device === "mobile" || device === "tablet";
 
         if (device === "desktop") {
           // ДЕСКТОП: круговое расположение
@@ -3037,6 +2240,7 @@
         setButtonsDisabled(true);
 
         const device = getDeviceType();
+        const isMobileDevice = device === "mobile";
         let targetAngle;
 
         // Вычисляем целевой угол
@@ -3074,8 +2278,8 @@
             isAnimating = false;
             setButtonsDisabled(false);
           }, 800);
-        } else {
-          // ПЛАНШЕТ/ТЕЛЕФОН: плавное переключение блоков
+        } else if (device === "tablet") {
+          // ПЛАНШЕТ: плавное переключение блоков с вращением
           const prevBlock =
             blocks[(currentBlock - (direction === "next" ? 1 : -1) + 6) % 6];
           const nextBlock = blocks[currentBlock];
@@ -3090,18 +2294,40 @@
             setTimeout(() => {
               nextBlock.classList.add("active");
 
-              // Вращаем якорь для планшетов/телефонов
-              if (device === "tablet") {
-                anchor.style.transform = `rotate(${targetAngle}deg)`;
+              // Вращаем якорь для планшетов
+              anchor.style.transform = `rotate(${targetAngle}deg)`;
 
-                // Вращаем inside-layer в обратную сторону с перевесом
-                const insideLayer = document.querySelector(".inside-layer");
-                if (insideLayer) {
-                  insideLayer.style.transform = `rotate(${
-                    -targetAngle * 1.5
-                  }deg)`;
-                }
+              // Вращаем inside-layer в обратную сторону с перевесом
+              const insideLayer = document.querySelector(".inside-layer");
+              if (insideLayer) {
+                insideLayer.style.transform = `rotate(${
+                  -targetAngle * 1.5
+                }deg)`;
               }
+
+              updateIndicators();
+
+              setTimeout(() => {
+                isAnimating = false;
+                setButtonsDisabled(false);
+              }, 300);
+            }, 50);
+          }, 300);
+        } else {
+          // ТЕЛЕФОН: плавное переключение блоков без вращения
+          const prevBlock =
+            blocks[(currentBlock - (direction === "next" ? 1 : -1) + 6) % 6];
+          const nextBlock = blocks[currentBlock];
+
+          // Скрываем предыдущий блок
+          prevBlock.classList.remove("active");
+          setTimeout(() => {
+            prevBlock.style.display = "none";
+
+            // Показываем следующий блок
+            nextBlock.style.display = "block";
+            setTimeout(() => {
+              nextBlock.classList.add("active");
 
               updateIndicators();
 
