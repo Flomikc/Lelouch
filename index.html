@@ -79,12 +79,12 @@
           margin: 0;
           transition: none !important;
         }
-        
+
         /* Для телефонов убираем вращение inside-layer */
         .inside-layer {
           transition: none !important;
         }
-        
+
         /* Центрируем outside и inside для телефонов */
         .outside-layer,
         .inside-layer {
@@ -221,7 +221,7 @@
           height: 385px;
           transform: scale(0.9);
         }
-        
+
         .content {
           top: 15px;
           left: 15px;
@@ -229,38 +229,38 @@
           bottom: 70px;
           padding: 15px;
         }
-        
+
         .content h2 {
           font-size: 24px;
           margin-bottom: 15px;
         }
-        
+
         .content p {
           font-size: 16px;
         }
-        
+
         .next-btn,
         .prev-btn {
           width: 180px;
           height: 45px;
           font-size: 15px;
         }
-        
+
         .read-btn {
           width: 320px;
           height: 45px;
           left: 250px;
           font-size: 15px;
         }
-        
+
         .next-btn {
           top: 270px;
         }
-        
+
         .prev-btn {
           top: 330px;
         }
-        
+
         .read-btn {
           top: 330px;
         }
@@ -280,11 +280,11 @@
           transform: translateX(-50%) !important;
           top: 0 !important;
         }
-        
+
         .info-block.active {
           display: block;
         }
-        
+
         .content {
           position: relative;
           top: 0;
@@ -294,7 +294,7 @@
           padding: 30px;
           height: auto;
         }
-        
+
         .next-btn,
         .prev-btn,
         .read-btn {
@@ -306,11 +306,11 @@
           height: 50px;
           font-size: 16px;
         }
-        
+
         .read-btn {
           margin-left: 0;
         }
-        
+
         .buttons-container {
           display: flex;
           flex-direction: column;
@@ -1021,9 +1021,7 @@
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       }
 
-      /* =================== ОСТАЛЬНЫЕ СТИЛИ =================== */
-      
-      /* Адаптивность для страницы */
+      /* =================== АДАПТИВНОСТЬ ДЛЯ СТРАНИЦЫ =================== */
       @media (max-width: 1440px) and (min-width: 1025px) {
         .page {
           min-height: calc(2531px * (100vw / 1920));
@@ -1067,9 +1065,7 @@
         transform: scale(1.2);
       }
 
-      /* Стили для контентных секций, футера и других элементов остаются без изменений */
-      /* ... остальной CSS код без изменений ... */
-
+      /* =================== КОНТЕНТНЫЕ СЕКЦИИ =================== */
       .content-sections {
         position: relative;
         width: 100%;
@@ -1105,6 +1101,34 @@
         overflow: hidden;
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .section {
+          margin: 0 auto 80px;
+          padding: 50px 30px 70px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .section {
+          margin: 0 20px 60px;
+          padding: 40px 20px 60px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section {
+          margin: 0 15px 50px;
+          padding: 30px 20px 50px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .section {
+          margin: 0 10px 40px;
+          padding: 25px 15px 45px;
+        }
+      }
+
       .section:last-child {
         margin-bottom: 0;
       }
@@ -1117,6 +1141,34 @@
         position: relative;
         padding-bottom: 20px;
         text-shadow: none;
+      }
+
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .section-title {
+          font-size: 2.5rem;
+          margin-bottom: 40px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .section-title {
+          font-size: 2.2rem;
+          margin-bottom: 35px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section-title {
+          font-size: 1.8rem;
+          margin-bottom: 30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .section-title {
+          font-size: 1.6rem;
+          margin-bottom: 25px;
+        }
       }
 
       .section-title::after {
@@ -1138,7 +1190,525 @@
         text-shadow: none;
       }
 
-      /* КНОПКА "ВЕРНУТЬСЯ В МЕНЮ" */
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .section-content {
+          font-size: 17px;
+          line-height: 1.7;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .section-content {
+          font-size: 16px;
+          line-height: 1.6;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section-content {
+          font-size: 15px;
+        }
+      }
+
+      /* 1. Сеттинг */
+      .setting-section {
+        background: linear-gradient(
+          135deg,
+          rgba(184, 122, 245, 0.178),
+          rgba(101, 28, 161, 0.9)
+        );
+      }
+
+      .setting-block {
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        padding: 40px;
+        background: rgba(88, 8, 167, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+      }
+
+      @media (max-width: 1024px) {
+        .setting-block {
+          flex-direction: column;
+          padding: 30px;
+          gap: 40px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .setting-block {
+          padding: 20px;
+          gap: 30px;
+        }
+      }
+
+      .setting-text {
+        flex: 1;
+      }
+
+      .setting-text h3 {
+        font-size: 2.2rem;
+        color: #ffd700;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 1024px) {
+        .setting-text h3 {
+          font-size: 1.8rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .setting-text h3 {
+          font-size: 1.5rem;
+        }
+      }
+
+      .setting-text p {
+        color: white;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 15px;
+        text-shadow: none;
+      }
+
+      @media (max-width: 1024px) {
+        .setting-text p {
+          font-size: 1rem;
+        }
+      }
+
+      .setting-bg {
+        flex: 1;
+        height: 400px;
+        background: linear-gradient(
+          45deg,
+          rgba(88, 8, 167, 0.15),
+          rgba(255, 215, 0, 0.1)
+        );
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .setting-bg {
+          height: 350px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .setting-bg {
+          height: 300px;
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .setting-bg {
+          height: 250px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .setting-bg {
+          height: 200px;
+        }
+      }
+
+      .setting-bg::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(88, 8, 167, 0.2) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 70% 70%,
+            rgba(255, 215, 0, 0.2) 0%,
+            transparent 50%
+          );
+        animation: rotate 20s linear infinite;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* 2. Персонаж */
+      .character-section {
+        background: linear-gradient(
+          135deg,
+          rgba(88, 8, 167, 0.15),
+          rgba(108, 38, 187, 0.1)
+        );
+      }
+
+      .character-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .character-stats {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .stat-item {
+        background: rgba(88, 8, 167, 0.1);
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        transition: transform 0.3s ease;
+        border-left: 4px solid #ffd700;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-value {
+        font-size: 28px;
+        color: #ffd700;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+
+      .character-block {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      @media (max-width: 1024px) {
+        .character-block {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .character-block {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .character-card {
+        background: rgba(88, 8, 167, 0.1);
+        border-radius: 15px;
+        padding: 30px;
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        transition: transform 0.3s ease, background 0.3s ease;
+        border-top: 4px solid #ffd700;
+      }
+
+      .character-card:hover {
+        transform: translateY(-10px);
+        background: rgba(88, 8, 167, 0.15);
+      }
+
+      .character-card h3 {
+        color: white;
+        font-size: 20px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-shadow: none;
+      }
+
+      .character-card h3::before {
+        content: "★";
+        color: #ffd700;
+      }
+
+      .character-card ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .character-card li {
+        margin-bottom: 10px;
+        padding-left: 20px;
+        position: relative;
+        color: white;
+        text-shadow: none;
+      }
+
+      .character-card li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: #ffd700;
+      }
+
+      /* 3. История */
+      .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 40px auto 0;
+      }
+
+      @media (max-width: 768px) {
+        .timeline {
+          margin: 30px auto 0;
+        }
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, #ffd700, #ffa500);
+      }
+
+      @media (max-width: 768px) {
+        .timeline::before {
+          left: 20px;
+        }
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 40px;
+        width: 45%;
+      }
+
+      @media (max-width: 768px) {
+        .timeline-item {
+          width: calc(100% - 40px);
+          left: 40px !important;
+        }
+      }
+
+      .timeline-item:nth-child(odd) {
+        left: 0;
+      }
+
+      .timeline-item:nth-child(even) {
+        left: 55%;
+      }
+
+      @media (max-width: 768px) {
+        .timeline-item:nth-child(even),
+        .timeline-item:nth-child(odd) {
+          left: 40px;
+        }
+      }
+
+      .timeline-content {
+        background: rgba(88, 8, 167, 0.1);
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        background: rgba(88, 8, 167, 0.15);
+      }
+
+      .timeline-year {
+        color: #ffd700;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+      }
+
+      .timeline-content h4 {
+        color: white;
+        text-shadow: none;
+      }
+
+      .timeline-content p {
+        color: white;
+        text-shadow: none;
+      }
+
+      /* 4. Стратегии */
+      .strategies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      @media (max-width: 1024px) {
+        .strategies-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .strategy-card {
+        background: rgba(88, 8, 167, 0.1);
+        padding: 25px;
+        border-radius: 15px;
+        border-top: 4px solid #ffd700;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .strategy-card:hover {
+        transform: translateY(-10px);
+        background: rgba(88, 8, 167, 0.15);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+      }
+
+      .strategy-title {
+        color: white;
+        font-size: 20px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-shadow: none;
+      }
+
+      .strategy-card p {
+        color: white;
+        text-shadow: none;
+      }
+
+      /* 5. Галерея */
+      .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      @media (max-width: 1024px) {
+        .image-gallery {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .image-gallery {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .image-gallery {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        height: 200px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(255, 215, 0, 0.2);
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.05);
+        border-color: rgba(255, 215, 0, 0.5);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.1);
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(88, 8, 167, 0.9);
+        color: white;
+        padding: 15px;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        text-shadow: none;
+        border-top: 2px solid #ffd700;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+      }
+
+      /* 6. Порядок просмотра */
+      .watch-order {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .order-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 25px;
+        background: rgba(88, 8, 167, 0.1);
+        border-radius: 15px;
+        border-left: 5px solid #ffd700;
+        transition: transform 0.3s ease;
+      }
+
+      .order-item:hover {
+        transform: translateX(10px);
+        background: rgba(88, 8, 167, 0.15);
+      }
+
+      .order-number {
+        width: 40px;
+        height: 40px;
+        background: #ffd700;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #1a1a2e;
+      }
+
+      .order-content h4 {
+        color: white;
+        font-size: 22px;
+        margin-bottom: 5px;
+        text-shadow: none;
+      }
+
+      .episodes {
+        color: white;
+        line-height: 1.6;
+        text-shadow: none;
+      }
+
+      /* КНОПКА "ВЕРНУТЬСЯ В МЕНЮ" - НОВЫЙ СТИЛЬ */
       .back-to-menu-btn {
         display: block;
         margin: 40px auto 0;
@@ -1165,6 +1735,47 @@
         box-shadow: 0 4px 15px rgba(88, 8, 167, 0.4);
       }
 
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        .back-to-menu-btn {
+          padding: 12px 30px;
+          font-size: 16px;
+          max-width: 250px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .back-to-menu-btn {
+          padding: 12px 30px;
+          font-size: 16px;
+          max-width: 250px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .back-to-menu-btn {
+          padding: 10px 25px;
+          font-size: 16px;
+          max-width: 220px;
+          bottom: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .back-to-menu-btn {
+          padding: 10px 20px;
+          font-size: 15px;
+          max-width: 200px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .back-to-menu-btn {
+          padding: 8px 16px;
+          font-size: 14px;
+          max-width: 180px;
+        }
+      }
+
       .back-to-menu-btn:hover {
         transform: translateX(-50%) translateY(-3px);
         box-shadow: 0 8px 20px rgba(88, 8, 167, 0.6);
@@ -1181,9 +1792,7 @@
         box-shadow: 0 2px 10px rgba(88, 8, 167, 0.4);
       }
 
-      /* Футер и другие стили остаются без изменений */
-      /* ... остальной CSS код ... */
-
+      /* =================== ПОДВАЛ =================== */
       .footer {
         width: 100%;
         max-width: 1920px;
@@ -1193,6 +1802,12 @@
         border-top: 3px solid #ffd700;
       }
 
+      @media (max-width: 1024px) {
+        .footer {
+          padding: 30px 15px;
+        }
+      }
+
       .footer-content {
         max-width: 1200px;
         margin: 0 auto;
@@ -1200,6 +1815,13 @@
         flex-wrap: wrap;
         gap: 40px;
         justify-content: space-between;
+      }
+
+      @media (max-width: 1024px) {
+        .footer-content {
+          flex-direction: column;
+          gap: 30px;
+        }
       }
 
       .contact-form-container {
@@ -1212,10 +1834,23 @@
         border: 1px solid #ffd700;
       }
 
+      @media (max-width: 1024px) {
+        .contact-form-container {
+          min-width: 100%;
+          padding: 20px;
+        }
+      }
+
       .contact-info {
         flex: 1;
         min-width: 300px;
         padding: 20px;
+      }
+
+      @media (max-width: 1024px) {
+        .contact-info {
+          min-width: 100%;
+        }
       }
 
       .contact-info h3 {
@@ -1225,6 +1860,12 @@
         text-shadow: none;
       }
 
+      @media (max-width: 768px) {
+        .contact-info h3 {
+          font-size: 22px;
+        }
+      }
+
       .contact-info p {
         color: white;
         margin-bottom: 15px;
@@ -1232,10 +1873,22 @@
         text-shadow: none;
       }
 
+      @media (max-width: 768px) {
+        .contact-info p {
+          font-size: 15px;
+        }
+      }
+
       .form-container {
         display: flex;
         flex-direction: column;
         gap: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .form-container {
+          gap: 15px;
+        }
       }
 
       .form-group {
@@ -1250,6 +1903,12 @@
         font-weight: 600;
       }
 
+      @media (max-width: 768px) {
+        .form-group label {
+          font-size: 15px;
+        }
+      }
+
       .form-group input,
       .form-group textarea {
         padding: 12px 15px;
@@ -1259,6 +1918,14 @@
         font-family: inherit;
         transition: all 0.3s ease;
         background-color: rgba(255, 255, 255, 0.9);
+      }
+
+      @media (max-width: 768px) {
+        .form-group input,
+        .form-group textarea {
+          padding: 14px;
+          font-size: 15px;
+        }
       }
 
       .form-group input:focus,
@@ -1279,6 +1946,13 @@
         margin-top: 10px;
       }
 
+      @media (max-width: 768px) {
+        .form-buttons {
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+
       .submit-btn {
         flex: 2;
         padding: 14px 20px;
@@ -1290,6 +1964,14 @@
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
+      }
+
+      @media (max-width: 768px) {
+        .submit-btn {
+          width: 100%;
+          padding: 16px;
+          font-size: 16px;
+        }
       }
 
       .submit-btn:hover:not(:disabled) {
@@ -1309,6 +1991,13 @@
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
+      }
+
+      @media (max-width: 768px) {
+        .reset-btn {
+          width: 100%;
+          padding: 16px;
+        }
       }
 
       .reset-btn:hover {
@@ -1359,6 +2048,13 @@
         color: white;
         font-size: 14px;
         text-shadow: none;
+      }
+
+      @media (max-width: 768px) {
+        .copyright {
+          margin-top: 30px;
+          font-size: 13px;
+        }
       }
     </style>
   </head>
@@ -1580,6 +2276,7 @@
       <div
         class="info-block active"
         id="block1"
+        style="top: 265px; left: 233px"
       >
         <div class="content">
           <h2>Введение в сеттинг</h2>
@@ -2159,8 +2856,9 @@
       const centerY = -99 + 594.5;
 
       // Для ноутбуков уменьшаем радиус расположения блоков
-      const radiusMultiplier = window.innerWidth <= 1440 && window.innerWidth >= 1025 ? 0.8 : 1;
-      
+      const radiusMultiplier =
+        window.innerWidth <= 1440 && window.innerWidth >= 1025 ? 0.8 : 1;
+
       // Позиция блока 1 для ПК
       const block1X = 233 + 329;
       const block1Y = 265 + 230.5;
